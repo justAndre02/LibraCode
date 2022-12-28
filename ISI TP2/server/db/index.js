@@ -43,7 +43,7 @@ mydbDB.one = (bookID) => {
 //Registo
 mydbDB.registo = (data) => {
     return new Promise((resolve, reject) => {
-        pool.query("INSERT INTO utilizador SET?",[data],(err,results) => {
+        pool.query('INSERT INTO utilizador SET?',[data],(err,results) => {
             if(err){
                 return reject(err);
             }
