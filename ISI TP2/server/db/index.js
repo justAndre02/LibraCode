@@ -16,6 +16,7 @@ const pool = mysql.createPool({
 
 let mydbDB = {};
 
+//Livros Todos
 mydbDB.all = () => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM livro',(err, results) => {
@@ -27,6 +28,7 @@ mydbDB.all = () => {
     });
 };
 
+//ID Livro
 mydbDB.one = (bookID) => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM livro WHERE bookID = ?', [bookID],(err, results) => {
@@ -35,6 +37,18 @@ mydbDB.one = (bookID) => {
             }
             return resolve(results[0]);
         });
+    });
+};
+
+//Registo
+mydbDB.registo = (data) => {
+    return new Promise((resolve, reject) => {
+        pool.query("INSERT INTO utilizador SET?",[data],(err,results) => {
+            if(err){
+                return reject(err);
+            }
+            return resolve(results);
+        })
     });
 };
 

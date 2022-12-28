@@ -12,6 +12,7 @@
       "/api/livros": {
         "get": {
           "summary": "Todos os livros",
+          "tags":["livro"],
           "parameters": [
             {
               "name": "lista",
@@ -37,13 +38,44 @@
             }
           }
         }
+      },
+      "/api/livros/{id}": {
+        "get": {
+          "summary": "Mostra o livro cuja id selecionas-te",
+          "tags":["livro"],
+          "operationId":"getLivroById",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID do livro",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+          }
+          ],
+          "responses": {
+            "200": {
+              "description": "ID Livro",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/livros"
+                }
+              }
+            },
+            "400": {
+                "description": "Algo correu mal"
+            }
+          }
+        }
       }
     },
     "definitions": {
       "livros": {
         "type": "object",
         "properties": {
-          "id": {
+          "bookID": {
             "type": "integer",
             "format": "int64"
           },
