@@ -1,0 +1,74 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "name": "isi-tp2",
+      "version": "1.0.0"
+    },
+    "basePath": "/",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/api/livros": {
+        "get": {
+          "summary": "Todos os livros",
+          "parameters": [
+            {
+              "name": "lista",
+              "in": "query",
+              "description": "Lista de todos os livros disponiveis",
+              "required": false,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A lista dos livros",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/livros"
+                }
+              }
+            },
+            "400": {
+                "description": "Algo correu mal"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "livros": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "authors": {
+            "type": "string"
+          },
+          "average_rating": {
+            "type": "string"
+          },
+          "isbn": {
+            "type": "string"
+          },
+          "num_pages": {
+            "type": "int"
+          },
+          "publication_date": {
+            "type": "string"
+          },
+          "publisher": {
+            "type": "string"
+          }
+        }
+      }
+    }
+}
