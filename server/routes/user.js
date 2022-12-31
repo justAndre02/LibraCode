@@ -14,4 +14,6 @@ router.get("/:id", utilizador.GetUtilizadorInfo_get);
 //update o nome de um utilizador
 router.put("/update/:id",utilizador.UpdateUtilizador_put);
   
+//delete um utilizador
+router.put("/delete/:id",utilizador.DeleteUtilizador_delete);
 module.exports = router;

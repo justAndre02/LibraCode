@@ -61,7 +61,24 @@ class Utilizador
         const[rows,fields] =  await sql.execute(query);
         //console.table(rows[0]);
         result(null,rows);
+    }
+
+    /**
+     * Permite eliminar um utilizador
+     * @param {char} nome Nome já existante de um utilizador
+     * @param {int} id Identificação de uma utilizador
+     * @param {*} result Retorna um erro, caso ele exista
+     */
+    static async DeleteUtilizador(nome,id,result) {
+        let query = `DELETE FROM utilizador WHERE id = "${id}"`;
+        const[rows,fields] = await sql.execute(query);
+        if (rows[0]) {
+            //console.log("error: ", rows[0][0]);
+            result(rows[0], null);
+        }else{
+            result(null,null);
         }
+    }
 }
 
   

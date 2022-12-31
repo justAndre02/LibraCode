@@ -5,6 +5,7 @@ const Utilizador = require("../db/user");
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
+ * @returns Utilizador criado com sucesso
  */
 exports.RegisterUtilizador_post = async (req, res,next) => {
   try {
@@ -37,6 +38,7 @@ exports.RegisterUtilizador_post = async (req, res,next) => {
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
+ * @returns data
  */
 exports.GetUtilizadorAllDetails_get = async (req, res,next) => {
   try {
@@ -54,6 +56,13 @@ exports.GetUtilizadorAllDetails_get = async (req, res,next) => {
   }
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns Utilizador atualizado com sucesso !
+ */
 exports.UpdateUtilizador_put = async (req, res,next) => {
   try {
     if(!req.params) return res.status(404).json({message:"bad request"});
@@ -72,6 +81,13 @@ exports.UpdateUtilizador_put = async (req, res,next) => {
   }
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns data[0]
+ */
 exports.GetUtilizadorInfo_get = async (req, res,next) => {
   try {
     if(!req.params) return res.status(404).json({message:"bad request"});
@@ -88,3 +104,28 @@ exports.GetUtilizadorInfo_get = async (req, res,next) => {
     next(error);
   }
 }
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns Utilizador removido com sucesso !
+ */
+exports.DeleteUtilizador_delete = async (req, res,next) => {
+  try {
+    if(!req.params) return res.status(404).json({message:"bad request"});
+    const{id} = req.params;
+    if (!req.body)
+      res.status(400).json({message: "Conteudo nao pode estar vazio!"});
+    if (req.body.nome != "")
+      await Utilizador.DeleteUtilizador(req.body.nome,id, (err1, data1) => {
+        if (err1)
+          res.status(500).json({ message: err1.message || "Ocorreu algum erro ao eliminar o conteudo"});
+      });
+    res.status(200).json({message: "Utilizador removido com sucesso !"});  
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
