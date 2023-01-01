@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
         res.json(results);
     }catch(e) {
         console.log(e);
-        res.sendStatus(500);
+        res.sendStatus(500).json({ message: err.message || "Erro ao efetuar o pedido" });
     }
 });
 
@@ -19,9 +19,8 @@ router.get('/:id', async (req, res, next) => {
         res.json(results);
     }catch(e) {
         console.log(e);
-        res.sendStatus(500);
+        res.sendStatus(500).json({ message: err.message || "Erro ao efetuar o pedido" });
     }
 });
 
 module.exports = router;
-

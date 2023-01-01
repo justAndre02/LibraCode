@@ -1,20 +1,46 @@
-const express = require('express');
-const apiRouterLivro = require('./routes/livro/index');
-const apiRouterUser = require('./routes/user/register');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../swagger.json');
+var express = require('express');
+var cors = require('cors');
+var bodyParser = require('body-parser');
+var path = require('path');
+var session = require('express-session');
+var cookieParser = require("cookie-parser");
+
+const utilizador_router = require('./routes/user/user');
+
 
 const app = express();
+// creating 24 hours from milliseconds
+const oneDay = 1000 * 60 * 60 * 24;
+path.basename(__dirname);
 
-app.use(express.json());
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: oneDay }
+}));
+app.use(cors());
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+//serving public file
+app.use(express.static(path.join(__dirname,"public")));
 
-app.use('/api/livros', apiRouterLivro);
-app.use('/register', apiRouterUser);
+// cookie parser middleware
+app.use(cookieParser());
 
+app.use("/user",utilizador_router);
 
-app.listen(process.env.PORT || '3000', () => {
+if (process.env.NODE_ENV == 'test') {
+  app.listen(process.env.PORT || '0');
+}
+else{
+  app.listen(process.env.PORT || '3000', () => {
+    console.log(`Server is running on port: ${process.env.PORT || '3000'}`);
+    console.log(`Server is running on url: http://localhost:${process.env.PORT || '3000'}`);
+  });
+}
 
-    console.log("Server running on port: ${process.env.PORT || '3000' }");
-})
+module.exports = app;
