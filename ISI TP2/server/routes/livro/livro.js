@@ -5,6 +5,6 @@ var router = require("express").Router();
 router.get("/all", livro.GetAllLivros_get);
 
 //get livros por id
-router.get("/:id", livro.GetLivroInfo_get);
+router.get("/:bookID", livro.GetLivroInfo_get);
 
 module.exports = router;
