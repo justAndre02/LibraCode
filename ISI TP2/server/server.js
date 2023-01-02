@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var session = require('express-session');
 var cookieParser = require("cookie-parser");
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const utilizador_router = require('./routes/user/user');
 const livro_router = require('./routes/livro/livro')

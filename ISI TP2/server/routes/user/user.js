@@ -15,7 +15,7 @@ router.get("/:id", utilizador.GetUtilizadorInfo_get);
 router.put("/update/:id",utilizador.UpdateUtilizador_put);
   
 //delete um utilizador
-router.put("/delete/:id",utilizador.DeleteUtilizador_delete);
+router.delete("/delete/:id",utilizador.DeleteUtilizador_delete);
 
 //login de um utilizador
 router.post("/login",utilizador.GetLogin_post);
