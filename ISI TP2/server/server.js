@@ -4,8 +4,9 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var session = require('express-session');
 var cookieParser = require("cookie-parser");
-//const swaggerUi = require('swagger-ui-express');
-//const swaggerDocument = require('./swagger.json');
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
 
 const utilizador_router = require('./routes/user/user');
 const livro_router = require('./routes/livro/livro')
@@ -36,6 +37,8 @@ app.use(cookieParser());
 
 app.use("/livro",livro_router)
 app.use("/user",utilizador_router);
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 if (process.env.NODE_ENV == 'test') {
   app.listen(process.env.PORT || '0');

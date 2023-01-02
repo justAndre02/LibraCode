@@ -1,18 +1,18 @@
 {
   "swagger": "2.0",
   "info": {
-    "name": "isi-tp2",
+    "name": "IPBOOK",
     "version": "1.0.0"
   },
-  "basePath": "/",
+  "basePath": "/api/docs",
   "schemes": [
     "http"
   ],
   "paths": {
-    "/api/livro": {
+    "/livro/all": {
       "get": {
          "summary": "Todos os livros",
-         "tags":["livro"],
+         "tags":["Livro"],
          "parameters": [
           {
              "name": "lista",
@@ -35,18 +35,21 @@
            },
           "400": {
               "description": "Algo correu mal"
+          },
+          "500": {
+            "description": "Ocorreu algum erro para obter os dados dos livros"
           }
         }
        }
      },
-     "/api/livro/{id}": {
+     "/livro/{bookID}": {
        "get": {
          "summary": "Mostra o livro cuja id selecionas-te",
-         "tags":["livro"],
+         "tags":["Livro"],
          "operationId":"getLivroById",
-        "parameters": [
+         "parameters": [
           {
-            "name": "id",
+            "name": "bookID",
              "in": "path",
              "description": "ID do livro",
             "required": true,
@@ -66,15 +69,121 @@
            },
            "400": {
               "description": "Algo correu mal"
+          },
+          "500": {
+            "description": "Ocorreu um erro a obter informacao sobre o livro"
           }
         }
-       }
+      }
     },
-    "/user/register": {
+    "/livro/delete/{bookID}": {
+      "delete": {
+        "summary": "Remove o livro cuja id selecionas-te",
+        "tags":["Livro"],
+        "operationId":"DeleteLivro",
+        "parameters": [
+         {
+           "name": "bookID",
+            "in": "path",
+            "description": "ID do livro",
+           "required": true,
+           "type": "integer",
+            "format": "int64"
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "Livro removido com sucesso",
+            "schema": {
+             "type": "array",
+             "items": {
+               "$ref": "#/definitions/livros"
+             }
+            }
+          },
+          "400": {
+             "description": "Algo correu mal"
+         },
+         "500": {
+           "description": "Não foi possivel remover o livro"
+         }
+       }
+     }
+   },
+   "/livro/add": {
+    "post": {
+       "summary": "Adiciona um livro",
+       "tags":["Livro"],
+       "operationId":"AddLivro",
+       "parameters": [
+        {
+           "name": "body",
+           "in": "body",
+           "description": "Adiciona um livro",
+           "required": true,
+           "type": "string",
+           "schema": {
+            "$ref": "#/definitions/livros"
+          }
+         }
+      ],
+      "responses": {
+         "200": {
+           "description": "Livro adicionado com sucesso",
+           "schema": {
+             "type": "array",
+             "items": {
+              "$ref": "#/definitions/livros"
+            }
+          }
+         },
+        "400": {
+            "description": "Campos Não preenchidos"
+        },
+        "500": {
+          "description": "Ocorreu algum erro ao adicionar o livro"
+        }
+      }
+     }
+   },
+   "/user/all": {
+    "get": {
+       "summary": "Todos os utilizadores",
+       "tags":["Utilizador"],
+       "parameters": [
+        {
+           "name": "lista",
+           "in": "query",
+           "description": "Lista de todos os utilizadores",
+           "required": false,
+           "type": "integer",
+           "format": "int32"
+        }
+      ],
+      "responses": {
+         "200": {
+           "description": "A lista dos utilizadores",
+           "schema": {
+             "type": "array",
+             "items": {
+              "$ref": "#/definitions/users"
+            }
+          }
+         },
+        "400": {
+            "description": "Algo correu mal"
+        },
+        "500": {
+          "description": "Ocorreu algum erro para obter os dados dos utilizadores"
+        }
+      }
+     }
+   },
+    "/user/signup": {
       "post": {
         "summary": "Registar Utilizador",
         "tags":["Utilizador"],
-        "operationId":"postUser",
+        "operationId":"RegisterUtilizador",
         "parameters": [
           {
             "name": "body",
@@ -98,20 +207,136 @@
             }
           },
           "400": {
-              "description": "Algo correu mal"
+            "description": "Conteudo nao pode estar vazio!"
+          },
+          "500": {
+            "description": "Ocorreu algum erro ao criar o Utilizador"
           }
         }
       }
+    },
+    "/user/update/{id}": {
+      "put": {
+        "summary": "Atualizar Utilizador",
+        "tags":["Utilizador"],
+        "operationId":"UpdateUtilizador",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do utilizador",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+        }, 
+        {
+          "name": "body",
+            "in": "body",
+            "description": "Nome do utilizador",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilizador atualizado com sucesso !",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/users"
+              }
+            }
+          },
+          "400": {
+            "description": "Conteudo nao pode estar vazio!"
+          },
+          "500": {
+            "description": "Ocorreu algum erro ao atualizar o conteudo"
+          }
+        }
+      }
+    },
+    "/user/delete/{id}": {
+      "delete": {
+        "summary": "Remove o utilizador cuja id selecionas-te",
+        "tags":["Utilizador"],
+        "operationId":"DeleteUtilizador",
+        "parameters": [
+         {
+           "name": "id",
+            "in": "path",
+            "description": "ID do utilizador",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilizador removido com sucesso",
+            "schema": {
+             "type": "array",
+             "items": {
+               "$ref": "#/definitions/users"
+             }
+            }
+          },
+          "400": {
+             "description": "Algo correu mal"
+         },
+         "500": {
+           "description": "Não foi possivel eliminar o utilizador"
+         }
+       }
+     }
+   },
+   "/user/login": {
+    "post": {
+      "summary": "LogIn de um Utilizador",
+      "tags":["Utilizador"],
+      "operationId":"GetLogin",
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "description": "Faz o login de um Utilizador",
+          "required": true,
+          "type": "string",
+          "schema": {
+            "$ref": "#/definitions/users"
+          }
+      }
+      ],
+      "responses": {
+        "200": {
+          "description": "Autenticado com sucesso",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        },
+        "400": {
+          "description": "Utilizador não encontrado"
+        },
+        "500": {
+          "description": "Erro ao efetuar o login"
+        }
+      }
     }
+  }
   },
   "definitions": {
     "livros": {
       "type": "object",
       "properties": {
-        "bookID": {
-        "type": "integer",
-          "format": "int64"
-        },
         "title": {
           "type": "string"
         },
@@ -125,7 +350,7 @@
           "type": "string"
         },
         "num_pages": {
-          "type": "int"
+          "type": "string"
         },
         "publication_date": {
           "type": "string"

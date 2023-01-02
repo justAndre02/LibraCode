@@ -4,7 +4,7 @@ class Utilizador
 {
 
     /**
-     * Chama a stored procedure encarregue de registar um utilizador
+     * Encarregue de registar um utilizador
      * @param {*} nome Devolve a nome criada 
      * @param {*} email Devolve o email criado
      * @param {*} password Devolve a password criada 
