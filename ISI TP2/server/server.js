@@ -6,6 +6,7 @@ var session = require('express-session');
 var cookieParser = require("cookie-parser");
 
 const utilizador_router = require('./routes/user/user');
+const livro_router = require('./routes/livro/livro')
 
 
 const app = express();
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname,"public")));
 // cookie parser middleware
 app.use(cookieParser());
 
+app.use("/livro",livro_router)
 app.use("/user",utilizador_router);
 
 if (process.env.NODE_ENV == 'test') {
