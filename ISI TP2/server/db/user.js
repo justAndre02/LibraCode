@@ -52,6 +52,23 @@ class Utilizador
     }
 
     /**
+     * Permite alterar a password de um utilizador
+     * @param {char} password Password já existante de um utilizador
+     * @param {int} id Identificação de uma utilizador
+     * @param {*} result Retorna um erro, caso ele exista
+     */
+    static async UpdateUtilizadorPassword(password,id,result) {
+        let query = `UPDATE utilizador SET password = "${password}" WHERE id = "${id}"`;
+        const[rows,fields] = await sql.execute(query);
+        if (!rows[0]) {
+            //console.log("error: ", rows[0][0]);
+            result(rows[0], null);
+        }else{
+            result(null,null);
+        }
+    }
+
+    /**
      * Apresenta toda a informação de um utilizador
      * @param {int} id Identificação de um utilizador
      * @param {*} result Dado a ser mudado

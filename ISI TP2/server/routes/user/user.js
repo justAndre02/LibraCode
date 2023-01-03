@@ -13,6 +13,9 @@ router.get("/:id", utilizador.GetUtilizadorInfo_get);
 
 //update o nome de um utilizador
 router.put("/update/:id",utilizador.UpdateUtilizador_put);
+
+//update o nome de um utilizador
+router.put("/updatepass/:id",utilizador.UpdateUtilizadorPassword_put);
   
 //delete um utilizador
 router.delete("/delete/:id",utilizador.DeleteUtilizador_delete);

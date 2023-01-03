@@ -87,6 +87,31 @@ exports.UpdateUtilizador_put = async (req, res,next) => {
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
+ * @returns Password atualizada com sucesso !
+ */
+exports.UpdateUtilizadorPassword_put = async (req, res,next) => {
+  try {
+    if(!req.params) return res.status(404).json({message:"bad request"});
+    const{id} = req.params;
+    if (!req.body)
+      res.status(400).json({message: "Conteudo nao pode estar vazio!"});
+    if (req.body.password != "")
+      await Utilizador.UpdateUtilizadorPassword(req.body.password,id, (err1, data1) => {
+        if (err1)
+          res.status(500).json({ message: err1.message || "Ocorreu algum erro ao atualizar o conteudo"});
+      });
+    res.status(200).json({message: "Password atualizada com sucesso !"});  
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
  * @returns data[0]
  */
 exports.GetUtilizadorInfo_get = async (req, res,next) => {
