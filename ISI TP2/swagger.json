@@ -4,7 +4,7 @@
     "name": "IPBOOK",
     "version": "1.0.0"
   },
-  "basePath": "/api/docs",
+  "basePath": "/",
   "schemes": [
     "http"
   ],
