@@ -30,4 +30,7 @@ router.post("/make/:Utilizador_id", emprestimo.MakeEmprestimo_post);
 //delete de um emprestimo do utilizador atual
 router.post("/cancel/:Utilizador_id", emprestimo.CancelEmprestimo_post);
 
+//post da verificação do registo
+router.post('/token', utilizador.signupValidation);
+
 module.exports = router;

@@ -190,3 +190,29 @@ exports.GetLogin_post = async (req, res,next) => {
     next(error);
   }
 };
+
+exports.signupValidation = async(req,res,next) => {
+  try{
+    if(
+      !req.headers.authorization ||
+      !req.headers.authorization.startsWith('Bearer') ||
+      !req.headers.authorization.split(' ')[1]
+    ){
+      return res.status(422).json({
+      message: "Insire o token",
+    });
+    }
+      const theToken = req.headers.authorization.split(' ')[1];
+      const decoded = jwt.verify(theToken, 'secret');
+      await Utilizador.GetUtilizadorInfo(decoded.id,(err, data) => {
+        if(err)
+          {
+            res.status(500).json({message: err.message || "Ocorreu um erro a obter informacao sobre o utilizador"});
+          }  
+          return res.send({ error: false, data: data[0], message: 'Utilizador Encontrado.' });
+      });
+  }
+  catch{
+
+  }
+};

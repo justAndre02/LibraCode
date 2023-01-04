@@ -108,6 +108,19 @@ class Utilizador
             result(null,rows);
         }
     }
+
+    /**
+     * Seleciona um utilizador dado o seu NIF ou email
+     * @param {*} email Email do utilizador
+     * @param {*} nif NIF do utilizador
+     * @param {*} result utilizadorcom email ou nif 
+     */
+    static async GetUtilizadorEmailNif(email,nif, result) {
+        let query = `SELECT * FROM utilizador WHERE email LIKE "${email}" OR nif LIKE "${nif}"`;
+        const[rows,fields] =  await sql.execute(query);
+        //console.table(rows[0]);
+        result(null,rows);
+    }
 }
 
   
