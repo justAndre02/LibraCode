@@ -57,13 +57,6 @@ class Livro {
             result(null,rows);
         }
     }
-
-    static async GetLivroISBN(isbn, result) {
-        let query = `SELECT * FROM livro WHERE isbn LIKE "${isbn}"`;
-        const[rows,fields] =  await sql.execute(query);
-        //console.table(rows[0]);
-        result(null,rows);
-    }
 }
 
 module.exports = Livro;

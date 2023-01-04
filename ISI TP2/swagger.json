@@ -13,7 +13,16 @@
       "get": {
          "summary": "Todos os livros",
          "tags":["Livro"],
-         "parameters": [],
+         "parameters": [
+          {
+             "name": "lista",
+             "in": "query",
+             "description": "Lista de todos os livros disponiveis",
+             "required": false,
+             "type": "integer",
+             "format": "int32"
+           }
+        ],
         "responses": {
            "200": {
              "description": "A lista dos livros",
@@ -141,7 +150,16 @@
     "get": {
        "summary": "Todos os utilizadores",
        "tags":["Utilizador"],
-       "parameters": [],
+       "parameters": [
+        {
+           "name": "lista",
+           "in": "query",
+           "description": "Lista de todos os utilizadores",
+           "required": false,
+           "type": "integer",
+           "format": "int32"
+        }
+      ],
       "responses": {
          "200": {
            "description": "A lista dos utilizadores",
@@ -314,39 +332,123 @@
       }
     }
   },
-  "/user/{id}": {
-    "get": {
-      "summary": "Mostra o utilizador cuja id selecionas-te",
-      "tags":["Utilizador"],
-      "operationId":"GetUtilizadorInfo",
+  "/user/make/{Utilizador_id}": {
+    "post": {
+      "summary": "Faz uma requisição de um livro",
+      "tags":["Emprestimo"],
+      "operationId":"MakeEmprestimo",
       "parameters": [
         {
-          "name": "id",
+          "name": "Utilizador_id",
           "in": "path",
-          "description": "ID do utilizador",
+          "description": "ID do Utilizador",
           "required": true,
           "type": "integer",
-          "format": "int32",
+          "format": "int64",
           "schema": {
-            "$ref": "#/definitions/users"
+            "$ref": "#/definitions/emprestimos_user"
           }
-        } 
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "description": "Faz uma requisição",
+          "required": true,
+          "type": "string",
+          "schema": {
+            "$ref": "#/definitions/emprestimos_make"
+          }
+        }
       ],
       "responses": {
         "200": {
-          "description": "Autenticado com sucesso",
+          "description": "Requisitado com sucesso",
           "schema": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/users"
+              "$ref": "#/definitions/emprestimos"
             }
           }
         },
         "400": {
-          "description": "Utilizador não encontrado"
+          "description": "Campos Não preenchidos"
         },
         "500": {
-          "description": "Erro ao efetuar o login"
+          "description": "Ocorreu algum erro ao fazer a requisição"
+        }
+      }
+    }
+  },
+  "/user/cancel/{Utilizador_id}": {
+    "post": {
+      "summary": "Cancela a requisição de um livro de um utilizador",
+      "tags":["Emprestimo"],
+      "operationId":"CancelEmprestimo",
+      "parameters": [
+        {
+          "name": "Utilizador_id",
+            "in": "path",
+            "description": "ID do utilizador",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        {
+          "name": "eid",
+            "in": "path",
+            "description": "ID do emprestimo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Cancelado com sucesso",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/emprestimos"
+            }
+          }
+        },
+        "400": {
+          "description": "Campos Não preenchidos"
+        },
+        "500": {
+          "description": "Ocorreu algum erro ao cancelar a requisição"
+        }
+      }
+    }
+  },
+  "/user/token": {
+    "post": {
+      "summary": "Listar Utilizador cujo token pertence",
+      "tags":["Utilizador"],
+      "operationId":"GetUserByToken",
+      "parameters": [
+        {
+          "type": "apiKey",
+          "name": "Authorization",
+          "in": "header",
+          "description": "Insire o token com o `Bearer: ` - Exemplo: 'Bearer xxxxxx'."
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Cancelado com sucesso",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/emprestimos"
+            }
+          }
+        },
+        "400": {
+          "description": "Campos Não preenchidos"
+        },
+        "500": {
+          "description": "Ocorreu algum erro ao cancelar a requisição"
         }
       }
     }
@@ -392,13 +494,58 @@
           "type": "string"
         },
         "nif": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "TipoUtilizador_id": {
           "type": "integer",
           "format": "int64"
         }  
       }
+    },
+    "emprestimos_make": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "data_devolucao": {
+          "type": "string"
+        },
+        "Livro_id": {
+          "type": "integer",
+          "format": "int64"
+        } 
+      }
+    },
+    "emprestimos_user": {
+      "type": "object",
+      "properties": {
+        "Utilizador_id": {
+          "type": "integer",
+          "format": "int64"
+        }  
+      }
+    },
+    "emprestimos": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "data_devolucao": {
+          "type": "string"
+        },
+        "Livro_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Utilizador_id": {
+          "type": "integer",
+          "format": "int64"
+        }   
+      }
     }
+
   }
 }

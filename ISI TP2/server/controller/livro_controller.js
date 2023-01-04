@@ -90,22 +90,11 @@ exports.AddLivro_post = async (req, res,next) => {
 
     const { title, authors, average_rating, isbn, num_pages, publication_date, publisher} = req.body;
 
-    await Livro.GetLivroISBN(isbn,async (err, data) => {
+    await Livro.AddLivro(title, authors, average_rating, isbn, num_pages, publication_date, publisher,(err, data) => {
       if (err){
-        res.status(500).json({message: "Ocorreu algum erro ao criar o Utilizador"});
-      }
-      if(data.length > 0){
-        return res.status(200).json({"message": "Este Livro já existe"}); 
-      }
-      else{
-        // salvar Livro na base de dados
-        await Livro.AddLivro(title, authors, average_rating, isbn, num_pages, publication_date, publisher,(err, data) => {
-          if (err){
-            res.status(500).json({message: "Ocorreu algum erro ao adicionar o livro"});
-          }else{
-            res.status(200).json({message: "Livro adicionado com sucesso"});
-          }
-        });
+        res.status(500).json({message: "Ocorreu algum erro ao adicionar o livro"});
+      }else{
+        res.status(200).json({message: "Livro adicionado com sucesso"});
       }
     });
   } catch (error) {
