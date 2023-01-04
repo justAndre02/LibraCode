@@ -331,6 +331,84 @@
         }
       }
     }
+  },
+  "/user/make/{Utilizador_id}": {
+    "post": {
+      "summary": "Faz uma requisição de um livro",
+      "tags":["Emprestimo"],
+      "operationId":"MakeEmprestimo",
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "description": "Faz uma requisição",
+          "required": true,
+          "type": "string",
+          "schema": {
+            "$ref": "#/definitions/emprestimos"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Requisitado com sucesso",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/emprestimos"
+            }
+          }
+        },
+        "400": {
+          "description": "Campos Não preenchidos"
+        },
+        "500": {
+          "description": "Ocorreu algum erro ao fazer a requisição"
+        }
+      }
+    }
+  },
+  "/user/cancel/{Utilizador_id}": {
+    "post": {
+      "summary": "Cancela a requisição de um livro de um utilizador",
+      "tags":["Emprestimo"],
+      "operationId":"CancelEmprestimo",
+      "parameters": [
+        {
+          "name": "Utilizador_id",
+            "in": "path",
+            "description": "ID do utilizador",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        {
+          "name": "eid",
+            "in": "path",
+            "description": "ID do emprestimo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Cancelado com sucesso",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/emprestimos"
+            }
+          }
+        },
+        "400": {
+          "description": "Campos Não preenchidos"
+        },
+        "500": {
+          "description": "Ocorreu algum erro ao cancelar a requisição"
+        }
+      }
+    }
   }
   },
   "definitions": {
@@ -377,6 +455,25 @@
           "format": "int64"
         },
         "TipoUtilizador_id": {
+          "type": "integer",
+          "format": "int64"
+        }  
+      }
+    },
+    "emprestimos": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "data_devolucao": {
+          "type": "string"
+        },
+        "Livro_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Utilizador_id": {
           "type": "integer",
           "format": "int64"
         }  

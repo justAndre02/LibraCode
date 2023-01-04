@@ -9,7 +9,8 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 
 const utilizador_router = require('./routes/user/user');
-const livro_router = require('./routes/livro/livro')
+const livro_router = require('./routes/livro/livro');
+const emprestimo_router = require('./routes/emprestimo/emprestimo');
 
 
 const app = express();
@@ -37,6 +38,7 @@ app.use(cookieParser());
 
 app.use("/livro",livro_router)
 app.use("/user",utilizador_router);
+app.use("/schedule",emprestimo_router);
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
