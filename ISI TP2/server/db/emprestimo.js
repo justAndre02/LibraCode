@@ -34,6 +34,17 @@ class Emprestimo{
             result(null,null);   
         }
     }
+
+    /**
+     * Chama uma query que vai listar todos os utilizador
+     * @param  {*} result Devolve um erro, caso este exista
+     */
+    static async GetEmprestimoAll(result) {
+        let query = "SELECT * FROM emprstimo";
+        const[rows,fields] =  await sql.execute(query);
+        //console.table(rows[0]);
+        result(null,rows);
+    }
 }
 
 module.exports = Emprestimo
