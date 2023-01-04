@@ -179,6 +179,40 @@
       }
      }
    },
+   "/user/{id}": {
+    "get": {
+      "summary": "Mostra o utilizador cuja id selecionas-te",
+      "tags":["Utilizador"],
+      "operationId":"GetUtilizadorInfo",
+      "parameters": [
+       {
+         "name": "id",
+          "in": "path",
+          "description": "ID do utilizador",
+         "required": true,
+         "type": "integer",
+          "format": "int64"
+      }
+      ],
+      "responses": {
+        "200": {
+          "description": "ID do utilizador",
+          "schema": {
+           "type": "array",
+           "items": {
+             "$ref": "#/definitions/users"
+           }
+          }
+        },
+        "400": {
+           "description": "Algo correu mal"
+       },
+       "500": {
+         "description": "Ocorreu um erro a obter informacao sobre o utilizador"
+       }
+     }
+   }
+ },
     "/user/signup": {
       "post": {
         "summary": "Registar Utilizador",
@@ -409,6 +443,73 @@
         }
       }
     }
+  },
+  "/emprestimo/all": {
+    "get": {
+       "summary": "Todos os emprestimos",
+       "tags":["Emprestimo"],
+       "parameters": [
+        {
+           "name": "lista",
+           "in": "query",
+           "description": "Lista de todos os emprestimos",
+           "required": false,
+           "type": "integer",
+           "format": "int32"
+        }
+      ],
+      "responses": {
+         "200": {
+           "description": "A lista dos emprestimos",
+           "schema": {
+             "type": "array",
+             "items": {
+              "$ref": "#/definitions/emprestimos"
+            }
+          }
+         },
+        "400": {
+            "description": "Algo correu mal"
+        },
+        "500": {
+          "description": "Ocorreu algum erro para obter os dados dos emprestimos"
+        }
+      }
+     }
+   },
+   "/emprestimo/{eid}": {
+    "get": {
+      "summary": "Apresenta o emprestimo selecionado",
+      "tags":["Emprestimo"],
+      "operationId":"GetEmprestimoInfo",
+      "parameters": [
+       {
+         "name": "eid",
+          "in": "path",
+          "description": "ID do emprestimo",
+         "required": true,
+         "type": "integer",
+          "format": "int64"
+      }
+      ],
+      "responses": {
+        "200": {
+          "description": "Emprestimo selecionado",
+          "schema": {
+           "type": "array",
+           "items": {
+             "$ref": "#/definitions/emprestimos"
+           }
+          }
+        },
+        "400": {
+           "description": "Algo correu mal"
+       },
+       "500": {
+         "description": "Ocorreu um erro a obter informacao sobre o emprestimo"
+       }
+     }
+   }
   }
   },
   "definitions": {

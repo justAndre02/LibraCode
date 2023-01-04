@@ -51,3 +51,50 @@ exports.CancelEmprestimo_post = async (req,res, next)=>{
         next(error);
     }
 };
+
+/**
+ * Chama todos os emprestimos e lista toda a sua informação
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns data
+ */
+exports.GetEmprestimoAll_get = async (req, res,next) => {
+    try {
+      await Emprestimo.GetEmprestimoAll((err, data) => {
+        if (err)
+          res.status(500).json({
+            message:
+              err.message || "Ocorreu algum erro para obter os dados dos emprestimos"
+          });
+        else res.status(200).json(data);
+      });
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+};
+
+/**
+ * Chama um determinado emprestimo pelo seu id
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns data
+ */
+exports.GetEmprestimoInfo_get = async (req, res,next) => {
+    try {
+      if(!req.params) return res.status(404).json({message:"bad request"});
+      const{eid} = req.params;
+      await Emprestimo.GetEmprestimoInfo(eid,(err, data) => {
+        if(err)
+          {
+            res.status(500).json({message: err.message || "Ocorreu um erro a obter informacao sobre o emprestimo"});
+          }  
+        res.status(200).json(data[0]);
+      });  
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+};
