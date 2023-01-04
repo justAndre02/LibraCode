@@ -23,4 +23,15 @@ router.delete("/delete/:id",utilizador.DeleteUtilizador_delete);
 //login de um utilizador
 router.post("/login",utilizador.GetLogin_post);
 
+<<<<<<< Updated upstream
+=======
+router.post('/token', utilizador.signupValidation);
+
+//post de um  novo emprestimo
+router.post("/make/:Utilizador_id", emprestimo.MakeEmprestimo_post);
+
+//delete de um emprestimo do utilizador atual
+router.post("/cancel/:Utilizador_id", emprestimo.CancelEmprestimo_post);
+
+>>>>>>> Stashed changes
 module.exports = router;
