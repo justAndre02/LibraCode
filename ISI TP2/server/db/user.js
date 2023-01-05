@@ -121,6 +121,44 @@ class Utilizador
         //console.table(rows[0]);
         result(null,rows);
     }
+
+    /**
+     * Adicionar token na tabela token
+     * @param {*} token Token
+     */
+    static async RegisterToken(token, result) {
+        const[rows,fields]= await sql.execute(`INSERT INTO token (token) VALUES ("${token}")`);
+        if (rows[0]){
+            //console.log("error: ", rows[0][0]);
+            result("Token já existe", null);
+        }else {
+            //console.log("created user");
+            result(null,rows);
+        }
+    }
+
+    /**
+     * Listar tokens na tabela token
+     * @param {*} token Token
+     */
+    static async ListToken(result) {
+        let query = await sql.execute(`SELECT * FROM token`);
+        const[rows,fields] =  await sql.execute(query);
+        console.log(rows)
+        //console.table(rows[0]);
+        //return result[null,rows];
+        return false
+    }
+
+    /**
+     * Eliminar tokens na tabela token
+     */
+    static async DeleteToken(result) {
+        let query = await sql.execute(`DELETE * FROM token WHERE idtoken = "1"`);
+        const[rows,fields] =  await sql.execute(query);
+        //console.table(rows[0]);
+        result(null,rows);
+    }
 }
 
   
