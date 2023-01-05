@@ -25,7 +25,7 @@ router.delete("/delete/:id",utilizador.DeleteUtilizador_delete);
 router.post("/login",utilizador.GetLogin_post);
 
 //logout
-router.get("/logout",utilizador.GetLogout);
+router.delete("/logout",utilizador.Logout_delete);
 
 //post de um  novo emprestimo
 router.post("/make/:Utilizador_id", emprestimo.MakeEmprestimo_post);

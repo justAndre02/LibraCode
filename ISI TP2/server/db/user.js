@@ -141,20 +141,18 @@ class Utilizador
      * Listar tokens na tabela token
      * @param {*} token Token
      */
-    static async ListToken(result) {
-        let query = await sql.execute(`SELECT * FROM token`);
+    static async GetToken(result) {
+        let query = "SELECT * FROM token";
         const[rows,fields] =  await sql.execute(query);
-        console.log(rows)
         //console.table(rows[0]);
-        //return result[null,rows];
-        return false
+        result(null,rows);
     }
 
     /**
      * Eliminar tokens na tabela token
      */
-    static async DeleteToken(result) {
-        let query = await sql.execute(`DELETE * FROM token WHERE idtoken = "1"`);
+    static async EliminarToken(id,result) {
+        let query = `DELETE FROM token WHERE idtoken > "${id}"`;
         const[rows,fields] =  await sql.execute(query);
         //console.table(rows[0]);
         result(null,rows);
