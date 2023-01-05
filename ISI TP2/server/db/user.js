@@ -110,13 +110,49 @@ class Utilizador
     }
 
     /**
-     * Seleciona um utilizador dado o seu NIF ou email
+     * Mostra um utilizador dado o seu NIF ou email
      * @param {*} email Email do utilizador
      * @param {*} nif NIF do utilizador
      * @param {*} result utilizadorcom email ou nif 
      */
     static async GetUtilizadorEmailNif(email,nif, result) {
         let query = `SELECT * FROM utilizador WHERE email LIKE "${email}" OR nif LIKE "${nif}"`;
+        const[rows,fields] =  await sql.execute(query);
+        //console.table(rows[0]);
+        result(null,rows);
+    }
+
+    /**
+     * Adiciona token na tabela token
+     * @param {*} token Token
+     */
+    static async RegisterToken(token, result) {
+        const[rows,fields]= await sql.execute(`INSERT INTO token (token) VALUES ("${token}")`);
+        if (rows[0]){
+            //console.log("error: ", rows[0][0]);
+            result("Token já existe", null);
+        }else {
+            //console.log("created user");
+            result(null,rows);
+        }
+    }
+
+    /**
+     * Mostra todos os tokens na tabela token
+     * @param {*} token Token
+     */
+    static async GetToken(result) {
+        let query = "SELECT * FROM token";
+        const[rows,fields] =  await sql.execute(query);
+        //console.table(rows[0]);
+        result(null,rows);
+    }
+
+    /**
+     * Eliminar tokens na tabela token
+     */
+    static async EliminarToken(id,result) {
+        let query = `DELETE FROM token WHERE idtoken > "${id}"`;
         const[rows,fields] =  await sql.execute(query);
         //console.table(rows[0]);
         result(null,rows);

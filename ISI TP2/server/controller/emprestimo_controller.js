@@ -1,4 +1,6 @@
-const Emprestimo = require("../db/emprestimo")
+const Emprestimo = require("../db/emprestimo");
+const Utilizador = require("../db/user");
+const Livro = require("../db/livro")
 
 exports.MakeEmprestimo_post = async (req,res,next)=>{
     try {
@@ -6,19 +8,38 @@ exports.MakeEmprestimo_post = async (req,res,next)=>{
             res.json({message: "Conteúdo não pode estar vazio!"});
 
         // verificar se os campos foram preeenchidos
-        if((req.body.data === "") || (req.body.data_devolucao === "") || (req.body.Livro_id === ""))
+        if((req.body.date === "") || (req.body.data_devolucao === "") || (req.body.Livro_id === ""))
             res.json({message: "Campos Não preenchidos"});
     
         const { data, data_devolucao, Livro_id} = req.body;
 
         if(!req.params) return res.status(404).json({message:"bad request"});
         const{Utilizador_id} = req.params;
-        
-        await Emprestimo.MakeEmprestimo(data, data_devolucao, Utilizador_id, Livro_id, (err,data)=>{
+
+        await Utilizador.GetUtilizadorInfo(Utilizador_id,async (err,date) => {
             if (err)
                 res.status(500).json({ message: err.message || "Ocorreu algum erro ao fazer a requisição" });
-            else 
-                res.status(200).json({message:"Requisição feita com Sucesso"});
+            if(date.length === 0){
+                return res.status(500).json({ message: "O Utilizador que inseriu não existe" });
+            }
+            else{
+                await Livro.GetLivroInfo(Livro_id,async (err,date) => {
+                    if (err)
+                        res.status(500).json({ message: err.message || "Ocorreu algum erro ao fazer a requisição" });
+                    if(date.length === 0){
+                        return res.status(500).json({ message: "O Livro que inseriu não existe" });
+                    }
+                    else{
+                        await Emprestimo.MakeEmprestimo(data, data_devolucao, Utilizador_id, Livro_id, (err,data)=>{
+                            if (err)
+                                res.status(500).json({ message: err.message || "Ocorreu algum erro ao fazer a requisição" });
+                            else 
+                                res.status(200).json({message:"Requisição feita com Sucesso"});
+                        });
+                    }
+                });
+            }
+
         });
     } catch (error) {
         console.log(error);
@@ -49,52 +70,5 @@ exports.CancelEmprestimo_post = async (req,res, next)=>{
     } catch (error) {
         console.log(error);
         next(error);
-    }
-};
-
-/**
- * Chama todos os emprestimos e lista toda a sua informação
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
- * @returns data
- */
-exports.GetEmprestimoAll_get = async (req, res,next) => {
-    try {
-      await Emprestimo.GetEmprestimoAll((err, data) => {
-        if (err)
-          res.status(500).json({
-            message:
-              err.message || "Ocorreu algum erro para obter os dados dos emprestimos"
-          });
-        else res.status(200).json(data);
-      });
-    } catch (error) {
-      console.log(error);
-      next(error);
-    }
-};
-
-/**
- * Chama um determinado emprestimo pelo seu id
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
- * @returns data
- */
-exports.GetEmprestimoInfo_get = async (req, res,next) => {
-    try {
-      if(!req.params) return res.status(404).json({message:"bad request"});
-      const{eid} = req.params;
-      await Emprestimo.GetEmprestimoInfo(eid,(err, data) => {
-        if(err)
-          {
-            res.status(500).json({message: err.message || "Ocorreu um erro a obter informacao sobre o emprestimo"});
-          }  
-        res.status(200).json(data[0]);
-      });  
-    } catch (error) {
-      console.log(error);
-      next(error);
     }
 };

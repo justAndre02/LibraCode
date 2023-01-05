@@ -179,40 +179,6 @@
       }
      }
    },
-   "/user/{id}": {
-    "get": {
-      "summary": "Mostra o utilizador cuja id selecionas-te",
-      "tags":["Utilizador"],
-      "operationId":"GetUtilizadorInfo",
-      "parameters": [
-       {
-         "name": "id",
-          "in": "path",
-          "description": "ID do utilizador",
-         "required": true,
-         "type": "integer",
-          "format": "int64"
-      }
-      ],
-      "responses": {
-        "200": {
-          "description": "ID do utilizador",
-          "schema": {
-           "type": "array",
-           "items": {
-             "$ref": "#/definitions/users"
-           }
-          }
-        },
-        "400": {
-           "description": "Algo correu mal"
-       },
-       "500": {
-         "description": "Ocorreu um erro a obter informacao sobre o utilizador"
-       }
-     }
-   }
- },
     "/user/signup": {
       "post": {
         "summary": "Registar Utilizador",
@@ -343,13 +309,38 @@
           "required": true,
           "type": "string",
           "schema": {
-            "$ref": "#/definitions/users"
+            "$ref": "#/definitions/users_login"
           }
       }
       ],
       "responses": {
         "200": {
           "description": "Autenticado com sucesso",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        },
+        "400": {
+          "description": "Utilizador não encontrado"
+        },
+        "500": {
+          "description": "Erro ao efetuar o login"
+        }
+      }
+    }
+  },
+  "/user/logout": {
+    "delete": {
+      "summary": "Logout de um Utilizador",
+      "tags":["Utilizador"],
+      "operationId":"GetLogout",
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Teminou a sessão com sucesso",
           "schema": {
             "type": "array",
             "items": {
@@ -373,13 +364,24 @@
       "operationId":"MakeEmprestimo",
       "parameters": [
         {
+          "name": "Utilizador_id",
+          "in": "path",
+          "description": "ID do Utilizador",
+          "required": true,
+          "type": "integer",
+          "format": "int64",
+          "schema": {
+            "$ref": "#/definitions/emprestimos_user"
+          }
+        },
+        {
           "name": "body",
           "in": "body",
           "description": "Faz uma requisição",
           "required": true,
           "type": "string",
           "schema": {
-            "$ref": "#/definitions/emprestimos"
+            "$ref": "#/definitions/emprestimos_make"
           }
         }
       ],
@@ -444,72 +446,62 @@
       }
     }
   },
-  "/emprestimo/all": {
-    "get": {
-       "summary": "Todos os emprestimos",
-       "tags":["Emprestimo"],
-       "parameters": [
-        {
-           "name": "lista",
-           "in": "query",
-           "description": "Lista de todos os emprestimos",
-           "required": false,
-           "type": "integer",
-           "format": "int32"
-        }
-      ],
-      "responses": {
-         "200": {
-           "description": "A lista dos emprestimos",
-           "schema": {
-             "type": "array",
-             "items": {
-              "$ref": "#/definitions/emprestimos"
-            }
-          }
-         },
-        "400": {
-            "description": "Algo correu mal"
-        },
-        "500": {
-          "description": "Ocorreu algum erro para obter os dados dos emprestimos"
-        }
-      }
-     }
-   },
-   "/emprestimo/{eid}": {
-    "get": {
-      "summary": "Apresenta o emprestimo selecionado",
-      "tags":["Emprestimo"],
-      "operationId":"GetEmprestimoInfo",
+  "/user/token": {
+    "post": {
+      "summary": "Listar Utilizador cujo token pertence",
+      "tags":["Utilizador"],
+      "operationId":"GetUserByToken",
       "parameters": [
-       {
-         "name": "eid",
-          "in": "path",
-          "description": "ID do emprestimo",
-         "required": true,
-         "type": "integer",
-          "format": "int64"
-      }
+        {
+          "type": "apiKey",
+          "name": "Authorization",
+          "in": "header",
+          "description": "Insire o token com o `Bearer: ` - Exemplo: 'Bearer xxxxxx'."
+        }
       ],
       "responses": {
         "200": {
-          "description": "Emprestimo selecionado",
+          "description": "Cancelado com sucesso",
           "schema": {
-           "type": "array",
-           "items": {
-             "$ref": "#/definitions/emprestimos"
-           }
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/emprestimos"
+            }
           }
         },
         "400": {
-           "description": "Algo correu mal"
-       },
-       "500": {
-         "description": "Ocorreu um erro a obter informacao sobre o emprestimo"
-       }
-     }
-   }
+          "description": "Campos Não preenchidos"
+        },
+        "500": {
+          "description": "Ocorreu algum erro ao cancelar a requisição"
+        }
+      }
+    }
+  },
+  "/user/showtoken": {
+    "get": {
+      "summary": "Mostra todos os tokens ativos",
+      "tags":["Utilizador"],
+      "operationId":"GetToken",
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Cancelado com sucesso",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/token"
+            }
+          }
+        },
+        "400": {
+          "description": "Campos Não preenchidos"
+        },
+        "500": {
+          "description": "Ocorreu algum erro ao cancelar a requisição"
+        }
+      }
+    }
   }
   },
   "definitions": {
@@ -539,6 +531,18 @@
         }
       }
     },
+    "token": {
+      "type": "object",
+      "properties": {
+        "idtoken": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
     "users": {
       "type": "object",
       "properties": {
@@ -561,6 +565,41 @@
         }  
       }
     },
+    "users_login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "emprestimos_make": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "data_devolucao": {
+          "type": "string"
+        },
+        "Livro_id": {
+          "type": "integer",
+          "format": "int64"
+        } 
+      }
+    },
+    "emprestimos_user": {
+      "type": "object",
+      "properties": {
+        "Utilizador_id": {
+          "type": "integer",
+          "format": "int64"
+        }  
+      }
+    },
     "emprestimos": {
       "type": "object",
       "properties": {
@@ -577,8 +616,9 @@
         "Utilizador_id": {
           "type": "integer",
           "format": "int64"
-        }  
+        }   
       }
     }
+
   }
 }

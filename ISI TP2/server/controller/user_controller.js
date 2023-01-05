@@ -18,16 +18,33 @@ exports.RegisterUtilizador_post = async (req, res,next) => {
     if((req.body.nome === "") || (req.body.email === "") || (req.body.password === "") || (req.body.nif === "")| (req.body.TipoUtilizador_id === "")) 
       res.status(400).json({Message: "Campos Não preenchidos"});
 
+    if(req.body.nif.length !== 9)
+    {
+      return res.status(400).json({Message: "NIF precisa ter 9 caracteres"});
+    }
+
     const { nome, email, password, nif, TipoUtilizador_id} = req.body;
 
-    // salvar utilizador na base de dados
-    await Utilizador.RegisterUtilizador(nome, email, password, nif, TipoUtilizador_id,(err, data) => {
+    //verificar se existe utilizador com email ou nif igual
+    await Utilizador.GetUtilizadorEmailNif(email,nif,async (err, data) => {
       if (err){
         res.status(500).json({message: "Ocorreu algum erro ao criar o Utilizador"});
-      }else{
-        res.status(200).json({message: "Utilizador criado com sucesso"});
+      }
+      if(data.length > 0){
+        return res.status(200).json({"message": "Este Utilizador já existe"}); 
+      }
+      else{
+        // salvar utilizador na base de dados
+        await Utilizador.RegisterUtilizador(nome, email, password, nif, TipoUtilizador_id,(err, data) => {
+          if (err){
+            res.status(500).json({message: "Ocorreu algum erro ao criar o Utilizador"});
+          }else{
+            res.status(200).json({message: "Utilizador criado com sucesso"});
+          }
+        });
       }
     });
+    
   } catch (error) {
     console.log(error);
     next(error);
@@ -112,7 +129,6 @@ exports.UpdateUtilizadorPassword_put = async (req, res,next) => {
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
- * @returns data[0]
  */
 exports.GetUtilizadorInfo_get = async (req, res,next) => {
   try {
@@ -122,8 +138,14 @@ exports.GetUtilizadorInfo_get = async (req, res,next) => {
       if(err)
         {
           res.status(500).json({message: err.message || "Ocorreu um erro a obter informacao sobre o utilizador"});
-        }  
-      res.status(200).json(data[0]);
+        }
+      if(data.length === 0)
+        {
+          res.status(200).json({message: "Este utilizador não existe"});
+        }
+      else{
+        res.status(200).json(data[0]);
+      }
     });  
   } catch (error) {
     console.log(error);
@@ -172,24 +194,44 @@ exports.GetLogin_post = async (req, res,next) => {
 
     const { email, password } = req.body;
 
-      await Utilizador.GetLogin(email, password, (err1, data) => {
-        if (err1)
-          res.status(500).json({ message: err1.message || "Erro ao efetuar o login"});
-        else {
-          results = JSON.parse(JSON.stringify(data[0]));
-          console.log(results[0].email,results[0].id, results[0].password);
-          if ((results[0].email == email) && (results[0].password == password)) {
-            let token = jwt.sign(results[0],'secret',{expiresIn:'1h'})
-            res.status(200).json({token,UserEmail:results[0].email,UserId:results[0].id});
+    await Utilizador.GetToken(async (err, data) => {
+      if(err)
+      {
+          res.status(500).json({message: err.message || "Não foi possivel logar o utilizador"});
+      }
+      if(data.length === 0)
+      {
+        await Utilizador.GetLogin(email, password, async (err1, data) => {
+          if (err1)
+            res.status(500).json({ message: err1.message || "Dados Incorretos"});
+          else {
+            results = JSON.parse(JSON.stringify(data[0]));
+            console.log(results[0].email,results[0].id, results[0].password);
+            if ((results[0].email == email) && (results[0].password == password)) {
+              let token = jwt.sign(results[0],'secret',{expiresIn:'1h'});
+              await Utilizador.RegisterToken(token,(err, data) => {
+                if(err)
+                  {
+                    res.status(500).json({message: err.message || "Não foi possivel logar o utilizador"});
+                  }  
+                res.status(200).json({token,UserEmail:results[0].email,UserId:results[0].id});
+              });  
+            }
+            else res.status(404).json({ message: "Utilizador não encontrado" });
           }
-          else res.status(404).json({ message: "Utilizador não encontrado" });
-        }
-      });
+        });
+      }
+      else
+      {
+        return res.status(500).json({message: "Já está logado"});
+      }
+    });  
   } catch (error) {
     console.log(error);
     next(error);
   }
 };
+
 
 exports.signupValidation = async(req,res,next) => {
   try{
@@ -214,5 +256,49 @@ exports.signupValidation = async(req,res,next) => {
   }
   catch{
 
+  }
+};
+
+exports.Logout_delete = async (req, res,next) => {
+  try {
+    if(!req.params) return res.status(404).json({message:"bad request"});
+
+    const id = '1';
+
+    await Utilizador.GetToken(async(err,data) => {
+      if(err) {
+        res.status(500).json({message: "Ocorreu algum erro para obter os dados dos utilizadores"});
+      }
+      if(data.length === 0)
+      {
+        return res.status(200).json({message: "Nenhum utilizador logado"})
+      }else {
+        await Utilizador.EliminarToken(id,(err1, data) => {
+          if (err1)
+            res.status(500).json({message: "Ocorreu algum erro para obter os dados dos utilizadores"});
+          else{ 
+            res.status(200).json({"message": "Sessão terminada"});
+          }
+        });
+      }
+    })
+    
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+exports.GetToken_get = async (req, res,next) => {
+  try {
+    await Utilizador.GetToken((err, data) => {
+      if (err)
+        res.status(500).json({message: "Ocorreu algum erro para obter os dados dos utilizadores"});
+      if(data.length === 0) res.status(200).json({message: "Nenhum token ativo"});
+      else res.status(200).json(data);
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
   }
 };

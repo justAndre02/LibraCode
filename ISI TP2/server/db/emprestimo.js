@@ -36,23 +36,11 @@ class Emprestimo{
     }
 
     /**
-     * Chama uma query que vai listar todos os emprestimos
+     * Chama uma query que vai listar todos os utilizador
      * @param  {*} result Devolve um erro, caso este exista
      */
     static async GetEmprestimoAll(result) {
-        let query = "SELECT * FROM emprestimo";
-        const[rows,fields] =  await sql.execute(query);
-        //console.table(rows[0]);
-        result(null,rows);
-    }
-
-    /**
-     * Apresenta toda a informação de um emprestimo
-     * @param {int} eeid Identificação de um emprestimo
-     * @param {*} result Dado correspondido
-     */
-    static async GetEmprestimoInfo(eid, result) {
-        let query = `SELECT * FROM emprestimo WHERE eid = "${eid}" `;
+        let query = "SELECT * FROM emprstimo";
         const[rows,fields] =  await sql.execute(query);
         //console.table(rows[0]);
         result(null,rows);

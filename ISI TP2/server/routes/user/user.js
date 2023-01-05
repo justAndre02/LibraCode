@@ -2,6 +2,8 @@ const utilizador = require("../../controller/user_controller");
 const emprestimo = require("../../controller/emprestimo_controller");
 var router = require("express").Router();
 
+//Mostra os tokens ativos
+router.get('/showtoken', utilizador.GetToken_get);
 
 //get todos os utilizadores
 router.get("/all", utilizador.GetUtilizadorAllDetails_get);
@@ -23,6 +25,9 @@ router.delete("/delete/:id",utilizador.DeleteUtilizador_delete);
 
 //login de um utilizador
 router.post("/login",utilizador.GetLogin_post);
+
+//logout
+router.delete("/logout",utilizador.Logout_delete);
 
 //post de um  novo emprestimo
 router.post("/make/:Utilizador_id", emprestimo.MakeEmprestimo_post);
