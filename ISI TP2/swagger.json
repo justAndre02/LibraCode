@@ -11,7 +11,7 @@
   "paths": {
     "/livro/all": {
       "get": {
-         "summary": "Todos os livros",
+         "summary": "Todos os testes",
          "tags":["Livro"],
          "parameters": [
           {
