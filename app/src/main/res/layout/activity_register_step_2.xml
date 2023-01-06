@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="registerStep2VM" type="com.paipbook.app.modules.registerstep2.data.viewmodel.RegisterStep2VM"/>
+    </data>
+    <LinearLayout android:id="@+id/linearRegisterstep"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical" style="@style/groupStylewhite_A700">
+        <ImageView android:id="@+id/imageReply"
+            android:layout_gravity="start"
+            android:layout_height="@dimen/_11pxh"
+            android:layout_marginEnd="@dimen/_25pxh"
+            android:layout_marginStart="@dimen/_25pxh"
+            android:layout_marginTop="@dimen/_17pxv"
+            android:layout_width="@dimen/_12pxh"
+            android:scaleType="fitXY" android:src="@drawable/img_reply"
+            tools:ignore="ContentDescription" tools:src="@drawable/img_reply"/>
+        <TextView android:ellipsize="end" android:id="@+id/txtRegisto"
+            android:layout_gravity="start"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10pxh"
+            android:layout_marginStart="@dimen/_9pxh"
+            android:layout_marginTop="@dimen/_38pxv"
+            android:layout_width="wrap_content"
+            android:singleLine="true"
+            android:text="@{registerStep2VM.registerStep2Model.txtRegisto}"
+            style="@style/txtRobotoromanregular36" tools:text="@string/lbl_registo2"/>
+        <EditText
+            android:background="@drawable/rectangle_bg_white_a700_border_green_903"
+            android:ellipsize="end"
+            android:hint="Nome"
+            android:id="@+id/etComponent" android:inputType="text"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8pxh"
+            android:layout_marginStart="@dimen/_9pxh"
+            android:layout_marginTop="@dimen/_26pxv"
+            android:layout_width="match_parent"
+            android:paddingBottom="@dimen/_20pxv"
+            android:paddingEnd="@dimen/_30pxh"
+            android:paddingStart="@dimen/_17pxh"
+            android:paddingTop="@dimen/_16pxv" android:singleLine="true"
+            android:text="@={registerStep2VM.registerStep2Model.etComponentValue}"
+            android:textColorHint="@color/green_903"
+            style="@style/etSolidOutline" tools:ignore="Autofill"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:ellipsize="end" android:gravity="center"
+            android:id="@+id/btnSignUp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8pxh"
+            android:layout_marginStart="@dimen/_9pxh"
+            android:layout_marginTop="@dimen/_28pxv"
+            android:layout_width="match_parent"
+            android:letterSpacing="0.03"
+            android:paddingBottom="@dimen/_18pxv"
+            android:paddingEnd="@dimen/_30pxh"
+            android:paddingStart="@dimen/_30pxh"
+            android:paddingTop="@dimen/_18pxv" android:singleLine="true"
+            android:text="@string/lbl_sign_up"
+            android:textAllCaps="true"
+            style="@style/btnSolidRoundedOutline_3" tools:text="@string/lbl_sign_up"/>
+        <TextView android:gravity="center_horizontal"
+            android:id="@+id/txtDescription"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20pxv"
+            android:layout_marginEnd="@dimen/_16pxh"
+            android:layout_marginStart="@dimen/_16pxh"
+            android:layout_marginTop="@dimen/_27pxv"
+            android:layout_width="match_parent"
+            android:lineSpacingExtra="@dimen/_5pxh"
+            android:text="@{registerStep2VM.registerStep2Model.txtDescription}"
+            style="@style/txtRobotoregular13" tools:text="@string/msg_by_signing_up"/>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="salasDeEstudoVM" type="com.paipbook.app.modules.salasdeestudo.data.viewmodel.SalasDeEstudoVM"/>
+    </data>
+    <LinearLayout android:gravity="start"
+        android:id="@+id/linearSalasdeEstudo"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical" style="@style/groupStylewhite_A700">
+        <ImageView android:id="@+id/imageHome"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="@dimen/_27pxh"
+            android:layout_marginEnd="@dimen/_23pxh"
+            android:layout_marginStart="@dimen/_23pxh"
+            android:layout_marginTop="@dimen/_21pxv"
+            android:layout_width="@dimen/_33pxh"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_home_27x33"
+            tools:ignore="ContentDescription" tools:src="@drawable/img_home_27x33"/>
+        <TextView android:ellipsize="end" android:id="@+id/txtLogin"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_23pxh"
+            android:layout_marginStart="@dimen/_23pxh"
+            android:layout_marginTop="@dimen/_26pxv"
+            android:layout_width="match_parent"
+            android:singleLine="true"
+            android:text="@{salasDeEstudoVM.salasDeEstudoModel.txtLogin}"
+            style="@style/txtRobotoromanregular36" tools:text="@string/lbl_salas_de_estudo"/>
+        <LinearLayout android:gravity="center_horizontal"
+            android:id="@+id/linearSala1"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_23pxh"
+            android:layout_marginStart="@dimen/_23pxh"
+            android:layout_marginTop="@dimen/_21pxv"
+            android:layout_width="match_parent"
+            android:orientation="vertical" style="@style/groupStylelight_green_200">
+            <TextView android:gravity="center_horizontal"
+                android:id="@+id/txtSala116luga"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_19pxv"
+                android:layout_marginEnd="@dimen/_9pxh"
+                android:layout_marginStart="@dimen/_9pxh"
+                android:layout_marginTop="@dimen/_22pxv"
+                android:layout_width="match_parent"
+                android:text="@{salasDeEstudoVM.salasDeEstudoModel.txtSala116luga}"
+                style="@style/txtRobotoromanblack36_1" tools:text="@string/msg_sala_1_16_luga"/>
+        </LinearLayout>
+        <LinearLayout android:gravity="center_horizontal"
+            android:id="@+id/linearSala2"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_23pxh"
+            android:layout_marginStart="@dimen/_23pxh"
+            android:layout_marginTop="@dimen/_36pxv"
+            android:layout_width="match_parent"
+            android:orientation="vertical" style="@style/groupStylelight_green_200">
+            <TextView android:gravity="center_horizontal"
+                android:id="@+id/txtSala116lugaOne"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_19pxv"
+                android:layout_marginEnd="@dimen/_13pxh"
+                android:layout_marginStart="@dimen/_13pxh"
+                android:layout_marginTop="@dimen/_22pxv"
+                android:layout_width="match_parent"
+                android:text="@{salasDeEstudoVM.salasDeEstudoModel.txtSala116lugaOne}"
+                style="@style/txtRobotoromanblack36_1" tools:text="@string/msg_sala_2_4_lugar"/>
+        </LinearLayout>
+        <LinearLayout android:gravity="center_horizontal"
+            android:id="@+id/linearSala3"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_23pxh"
+            android:layout_marginStart="@dimen/_23pxh"
+            android:layout_marginTop="@dimen/_36pxv"
+            android:layout_width="match_parent"
+            android:orientation="vertical" style="@style/groupStylelight_green_200">
+            <TextView android:gravity="center_horizontal"
+                android:id="@+id/txtSala116lugaTwo"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_19pxv"
+                android:layout_marginEnd="@dimen/_19pxh"
+                android:layout_marginStart="@dimen/_19pxh"
+                android:layout_marginTop="@dimen/_22pxv"
+                android:layout_width="match_parent"
+                android:text="@{salasDeEstudoVM.salasDeEstudoModel.txtSala116lugaTwo}"
+                style="@style/txtRobotoromanblack36_1" tools:text="@string/msg_sala_3_4_lugar"/>
+        </LinearLayout>
+        <LinearLayout android:gravity="center_horizontal"
+            android:id="@+id/linearSala4"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20pxv"
+            android:layout_marginEnd="@dimen/_23pxh"
+            android:layout_marginStart="@dimen/_23pxh"
+            android:layout_marginTop="@dimen/_36pxv"
+            android:layout_width="match_parent"
+            android:orientation="vertical" style="@style/groupStylelight_green_200">
+            <TextView android:gravity="center_horizontal"
+                android:id="@+id/txtSala116lugaThree"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_19pxv"
+                android:layout_marginEnd="@dimen/_19pxh"
+                android:layout_marginStart="@dimen/_19pxh"
+                android:layout_marginTop="@dimen/_22pxv"
+                android:layout_width="match_parent"
+                android:text="@{salasDeEstudoVM.salasDeEstudoModel.txtSala116lugaThree}"
+                style="@style/txtRobotoromanblack36_1" tools:text="@string/msg_sala_4_4_lugar"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

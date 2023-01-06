@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest package="com.paipbook.app" xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <application android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name" android:largeHeap="true"
+        android:name="com.paipbook.app.appcomponents.di.MyApp"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true" android:theme="@style/Theme.MyApp" android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.paipbook.app.modules.perfil.ui.PerfilActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.paipbook.app.modules.requisio.ui.RequisiOActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.paipbook.app.modules.registerstep1.ui.RegisterStep1Activity" android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.paipbook.app.modules.disciplinaaestudar.ui.DisciplinaAEstudarActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.paipbook.app.modules.reserva1.ui.Reserva1Activity" android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.paipbook.app.modules.salasdeestudo.ui.SalasDeEstudoActivity" android:screenOrientation="portrait"/>
+        <activity android:exported="true"
+            android:name="com.paipbook.app.modules.welcome.ui.WelcomeActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.paipbook.app.modules.registerstep2.ui.RegisterStep2Activity" android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.paipbook.app.modules.pginainicial.ui.PGinaInicialActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.paipbook.app.modules.reservas.ui.ReservasActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.paipbook.app.modules.reserva2.ui.Reserva2Activity" android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.paipbook.app.modules.login.ui.LoginActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.paipbook.app.modules.resultado.ui.ResultadoActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.paipbook.app.modules.livrosrecomendados.ui.LivrosRecomendadosActivity" android:screenOrientation="portrait"/>
+    </application>
+</manifest>
