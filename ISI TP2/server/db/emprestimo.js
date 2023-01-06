@@ -53,11 +53,11 @@ class Emprestimo{
     }
 
     /**
-     * Chama uma query que vai listar todos os utilizador
+     * Chama uma query que vai listar todos os emprestimos
      * @param  {*} result Devolve um erro, caso este exista
      */
     static async GetEmprestimoAll(result) {
-        let query = "SELECT * FROM emprstimo";
+        let query = "SELECT * FROM emprestimo";
         const[rows,fields] =  await sql.execute(query);
         //console.table(rows[0]);
         result(null,rows);

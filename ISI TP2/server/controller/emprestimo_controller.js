@@ -98,3 +98,19 @@ exports.EntregaEmprestimo_post = async (req,res, next)=>{
         next(error);
     }
 };
+
+exports.GetEmprestimoAll_get = async (req, res,next) => {
+    try {
+      await Emprestimo.GetEmprestimoAll((err, data) => {
+        if (err)
+          res.status(500).json({
+            message:
+              err.message || "Ocorreu algum erro para obter os dados dos emprestimos"
+          });
+        else res.status(200).json(data);
+      });
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+};
