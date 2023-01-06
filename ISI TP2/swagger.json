@@ -6,7 +6,7 @@
   },
   "basePath": "/",
   "schemes": [
-    "http, https"
+    "http", "https"
   ],
   "paths": {
     "/livro/all": {
