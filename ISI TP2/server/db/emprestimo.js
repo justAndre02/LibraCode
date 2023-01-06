@@ -62,6 +62,13 @@ class Emprestimo{
         //console.table(rows[0]);
         result(null,rows);
     }
+
+    static async GetActiveEmprestimo(eid, result) {
+        let query = `call AindaAtiva(${eid})" `;
+        const[rows,fields] =  await sql.execute(query);
+        //console.table(rows[0]);
+        result(null,rows);
+    }
 }
 
 module.exports = Emprestimo

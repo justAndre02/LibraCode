@@ -114,3 +114,21 @@ exports.GetEmprestimoAll_get = async (req, res,next) => {
       next(error);
     }
 };
+
+exports.GetActiveEmprestimo_get = async (req, res,next) => {
+    try {
+      if(!req.params) return res.status(404).json({message:"bad request"});
+      const{eid} = req.params;
+      await Emprestimo.GetActiveEmprestimo(eid,(err, data) => {
+        if(err)
+          {
+            res.status(500).json({message: err.message || "Ocorreu um erro a obter informacao sobre o emprestimo"});
+          }  
+        res.status(200).json(data[0]);
+      });  
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+};
+
