@@ -420,11 +420,14 @@
         },
         {
           "name": "eid",
-            "in": "path",
-            "description": "ID do emprestimo",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
+          "in": "body",
+          "description": "ID do emprestimo",
+          "required": true,
+          "type": "integer",
+          "format": "int64",
+          "schema": {
+            "$ref": "#/definitions/emprestimos_eid"
+          }
         }
       ],
       "responses": {
@@ -461,12 +464,15 @@
             "format": "int64"
         },
         {
-          "name": "eid",
-            "in": "path",
+            "name": "eid",
+            "in": "body",
             "description": "ID do emprestimo",
             "required": true,
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "schema": {
+              "$ref": "#/definitions/emprestimos_eid"
+            }
         }
       ],
       "responses": {
@@ -637,6 +643,15 @@
       "type": "object",
       "properties": {
         "Utilizador_id": {
+          "type": "integer",
+          "format": "int64"
+        }  
+      }
+    },
+    "emprestimos_eid": {
+      "type": "object",
+      "properties": {
+        "eid": {
           "type": "integer",
           "format": "int64"
         }  
