@@ -466,7 +466,7 @@
         {
             "name": "eid",
             "in": "body",
-            "description": "ID do emprestimo",
+            "description": "ID do Emprestimo",
             "required": true,
             "type": "integer",
             "format": "int64",
