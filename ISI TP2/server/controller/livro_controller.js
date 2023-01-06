@@ -85,7 +85,8 @@ exports.AddLivro_post = async (req, res,next) => {
       res.status(400).json({message: "Conteudo nao pode estar vazio!"});
 
     // verificar se os campos foram preeenchidos
-    if((req.body.title === "") || (req.body.authors === "") || (req.body.average_rating === "") || (req.body.isbn === "") || (req.body.num_pages === "") || (req.body.publication_date === ""  || (req.body.publisher === ""))) 
+    if((req.body.title === "") || (req.body.authors === "") || (req.body.average_rating === "") || (req.body.isbn === "") || (req.body.num_pages === "")
+     || (req.body.publication_date === ""  || (req.body.publisher === ""))) 
       res.status(400).json({Message: "Campos Não preenchidos"});
 
     const { title, authors, average_rating, isbn, num_pages, publication_date, publisher} = req.body;

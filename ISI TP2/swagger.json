@@ -577,7 +577,41 @@
         }
       }
      }
+   },
+   "/emprestimo/{eid}": {
+    "get": {
+      "summary": "Mostra se o emprestimo está ativo",
+      "tags":["Emprestimo"],
+      "operationId":"GetActiveEmprestimo",
+      "parameters": [
+       {
+         "name": "eid",
+          "in": "path",
+          "description": "ID do emprestimo",
+         "required": true,
+         "type": "integer",
+          "format": "int64"
+      }
+      ],
+      "responses": {
+        "200": {
+          "description": "Estado do emprestimo",
+          "schema": {
+           "type": "array",
+           "items": {
+             "$ref": "#/definitions/emprestimos"
+           }
+          }
+        },
+        "400": {
+           "description": "Algo correu mal"
+       },
+       "500": {
+         "description": "Ocorreu um erro a obter informacao sobre o emprestimo"
+       }
+     }
    }
+  }
   },
   "definitions": {
     "livros": {

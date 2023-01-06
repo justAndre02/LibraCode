@@ -64,7 +64,7 @@ class Emprestimo{
     }
 
     static async GetActiveEmprestimo(eid, result) {
-        let query = `call AindaAtiva(${eid})" `;
+        let query = `call AindaAtiva(${eid})`;
         const[rows,fields] =  await sql.execute(query);
         //console.table(rows[0]);
         result(null,rows);
