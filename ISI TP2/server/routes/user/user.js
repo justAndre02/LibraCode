@@ -32,8 +32,11 @@ router.delete("/logout",utilizador.Logout_delete);
 //post de um  novo emprestimo
 router.post("/make/:Utilizador_id", emprestimo.MakeEmprestimo_post);
 
-//delete de um emprestimo do utilizador atual
+//cancel de um emprestimo do utilizador atual
 router.post("/cancel/:Utilizador_id", emprestimo.CancelEmprestimo_post);
+
+//finish de um emprestimo do utilizador atual
+router.post("/return/:Utilizador_id", emprestimo.EntregaEmprestimo_post);
 
 //post da verificação do registo
 router.post('/token', utilizador.signupValidation);

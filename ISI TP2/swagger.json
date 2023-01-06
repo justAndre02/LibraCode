@@ -446,6 +446,48 @@
       }
     }
   },
+  "/user/return/{Utilizador_id}": {
+    "post": {
+      "summary": "Devolve a requisição de um livro de um utilizador",
+      "tags":["Emprestimo"],
+      "operationId":"EntregaEmprestimo",
+      "parameters": [
+        {
+          "name": "Utilizador_id",
+            "in": "path",
+            "description": "ID do utilizador",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        {
+          "name": "eid",
+            "in": "path",
+            "description": "ID do emprestimo",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Devolvido com sucesso",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/emprestimos"
+            }
+          }
+        },
+        "400": {
+          "description": "Campos Não preenchidos"
+        },
+        "500": {
+          "description": "Ocorreu algum erro ao devolver a requisição"
+        }
+      }
+    }
+  },
   "/user/token": {
     "post": {
       "summary": "Listar Utilizador cujo token pertence",

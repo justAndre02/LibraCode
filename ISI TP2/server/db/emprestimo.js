@@ -22,11 +22,28 @@ class Emprestimo{
 
     /**
      * Cancela uma requisição e remove a da base de dados
+     * @param {*} Utilizador_id Identificação do utilizador
      * @param {*} eid Identificação do emprestimo
      * @param {*} result Emprestimo cancelado
      */
     static async CancelEmprestimo(Utilizador_id,eid,result){
         let query = `call CancelEmprestimo(${Utilizador_id},${eid})`;
+        const[rows,fields] = await sql.execute(query);
+        if(rows[0]){
+            result(rows[0][0],null);
+        }else{
+            result(null,null);   
+        }
+    }
+
+    /**
+     * Devolve um livro após o ler
+     * @param {*} Utilizador_id Identificação do utilizador
+     * @param {*} eid Identificação do empréstimo
+     * @param {*} result Emprestimo devolvido
+     */
+    static async EntregaEmprestimo(Utilizador_id,eid,result){
+        let query = `call EntregarEmprestimo(${Utilizador_id},${eid})`;
         const[rows,fields] = await sql.execute(query);
         if(rows[0]){
             result(rows[0][0],null);

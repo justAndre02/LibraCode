@@ -72,3 +72,29 @@ exports.CancelEmprestimo_post = async (req,res, next)=>{
         next(error);
     }
 };
+
+exports.EntregaEmprestimo_post = async (req,res, next)=>{
+    try {
+        if (!req.body)
+            res.status(400).json({message: "Conteudo nao pode estar vazio!"});
+
+        // verificar se os campos foram preeenchidos
+        if(req.body.eid === "")
+            res.status(400).json({Message: "Campos Não preenchidos"});
+    
+        const { eid } = req.body;
+
+        if(!req.params) return res.status(404).json({message:"bad request"});
+        const{Utilizador_id} = req.params;
+
+        await Emprestimo.EntregaEmprestimo(Utilizador_id,eid,(err,data)=>{
+            if (err)
+                res.status(500).json({ message: err.message || "Ocorreu algum erro ao devolver a requisição" });
+            else 
+                res.status(200).json({message:"Requsição entregue!"});
+        });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
