@@ -550,7 +550,40 @@
         }
       }
     }
-  }
+  },
+  "/emprestimo/all": {
+    "get": {
+       "summary": "Todos os emprestimos",
+       "tags":["Emprestimo"],
+       "parameters": [
+        {
+           "name": "lista",
+           "in": "query",
+           "description": "Lista de todos os emprestimos",
+           "required": false,
+           "type": "integer",
+           "format": "int32"
+        }
+      ],
+      "responses": {
+         "200": {
+           "description": "A lista dos emprestimos",
+           "schema": {
+             "type": "array",
+             "items": {
+              "$ref": "#/definitions/emprestimos"
+            }
+          }
+         },
+        "400": {
+            "description": "Algo correu mal"
+        },
+        "500": {
+          "description": "Ocorreu algum erro para obter os dados dos emprestimos"
+        }
+      }
+     }
+   }
   },
   "definitions": {
     "livros": {

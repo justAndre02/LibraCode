@@ -38,7 +38,7 @@ app.use(cookieParser());
 
 app.use("/livro",livro_router)
 app.use("/user",utilizador_router);
-app.use("/schedule",emprestimo_router);
+app.use("/emprestimo",emprestimo_router);
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
