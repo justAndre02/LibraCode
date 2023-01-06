@@ -461,11 +461,11 @@
       ],
       "responses": {
         "200": {
-          "description": "Cancelado com sucesso",
+          "description": "Token válido",
           "schema": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/emprestimos"
+              "$ref": "#/definitions/users"
             }
           }
         },
@@ -473,7 +473,7 @@
           "description": "Campos Não preenchidos"
         },
         "500": {
-          "description": "Ocorreu algum erro ao cancelar a requisição"
+          "description": "Ocorreu algum erro ao requisitar o token"
         }
       }
     }
