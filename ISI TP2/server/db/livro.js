@@ -48,7 +48,8 @@ class Livro {
      * @param {*} result Livro adicionado
      */
     static async AddLivro(title, authors, average_rating, isbn, num_pages, publication_date, publisher, result) {
-        const[rows,fields]= await sql.execute(`INSERT INTO livro (title, authors, average_rating, isbn, num_pages, publication_date, publisher) VALUES ("${title}","${authors}","${average_rating}","${isbn}","${num_pages}","${publication_date}","${publisher}")`);
+        const[rows,fields]= await sql.execute(`INSERT INTO livro (title, authors, average_rating, isbn, num_pages, publication_date, publisher)
+        VALUES ("${title}","${authors}","${average_rating}","${isbn}","${num_pages}","${publication_date}","${publisher}")`);
         if (rows[0]){
             //console.log("error: ", rows[0][0]);
             result("Livro já existe", null);
