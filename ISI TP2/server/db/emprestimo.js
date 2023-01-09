@@ -22,6 +22,7 @@ class Emprestimo{
 
     /**
      * Cancela uma requisição e remove a da base de dados
+     * @param {*} Utilizador_id Identificação do utilizador
      * @param {*} eid Identificação do emprestimo
      * @param {*} result Emprestimo cancelado
      */
@@ -36,11 +37,34 @@ class Emprestimo{
     }
 
     /**
-     * Chama uma query que vai listar todos os utilizador
+     * Devolve um livro após o ler
+     * @param {*} Utilizador_id Identificação do utilizador
+     * @param {*} eid Identificação do empréstimo
+     * @param {*} result Emprestimo devolvido
+     */
+    static async EntregaEmprestimo(Utilizador_id,eid,result){
+        let query = `call EntregarEmprestimo(${Utilizador_id},${eid})`;
+        const[rows,fields] = await sql.execute(query);
+        if(rows[0]){
+            result(rows[0][0],null);
+        }else{
+            result(null,null);   
+        }
+    }
+
+    /**
+     * Chama uma query que vai listar todos os emprestimos
      * @param  {*} result Devolve um erro, caso este exista
      */
     static async GetEmprestimoAll(result) {
-        let query = "SELECT * FROM emprstimo";
+        let query = "SELECT * FROM emprestimo";
+        const[rows,fields] =  await sql.execute(query);
+        //console.table(rows[0]);
+        result(null,rows);
+    }
+
+    static async GetActiveEmprestimo(eid, result) {
+        let query = `call AindaAtiva(${eid})`;
         const[rows,fields] =  await sql.execute(query);
         //console.table(rows[0]);
         result(null,rows);

@@ -6,7 +6,7 @@
   },
   "basePath": "/",
   "schemes": [
-    "http"
+    "http", "https"
   ],
   "paths": {
     "/livro/all": {
@@ -420,11 +420,14 @@
         },
         {
           "name": "eid",
-            "in": "path",
-            "description": "ID do emprestimo",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
+          "in": "body",
+          "description": "ID do emprestimo",
+          "required": true,
+          "type": "integer",
+          "format": "int64",
+          "schema": {
+            "$ref": "#/definitions/emprestimos_eid"
+          }
         }
       ],
       "responses": {
@@ -442,6 +445,51 @@
         },
         "500": {
           "description": "Ocorreu algum erro ao cancelar a requisição"
+        }
+      }
+    }
+  },
+  "/user/return/{Utilizador_id}": {
+    "post": {
+      "summary": "Devolve a requisição de um livro de um utilizador",
+      "tags":["Emprestimo"],
+      "operationId":"EntregaEmprestimo",
+      "parameters": [
+        {
+          "name": "Utilizador_id",
+            "in": "path",
+            "description": "ID do utilizador",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        {
+            "name": "eid",
+            "in": "body",
+            "description": "ID do Emprestimo",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "schema": {
+              "$ref": "#/definitions/emprestimos_eid"
+            }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Devolvido com sucesso",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/emprestimos"
+            }
+          }
+        },
+        "400": {
+          "description": "Campos Não preenchidos"
+        },
+        "500": {
+          "description": "Ocorreu algum erro ao devolver a requisição"
         }
       }
     }
@@ -502,6 +550,73 @@
         }
       }
     }
+  },
+  "/emprestimo/all": {
+    "get": {
+       "summary": "Todos os emprestimos",
+       "tags":["Emprestimo"],
+       "parameters": [
+        {
+           "name": "lista",
+           "in": "query",
+           "description": "Lista de todos os emprestimos",
+           "required": false,
+           "type": "integer",
+           "format": "int32"
+        }
+      ],
+      "responses": {
+         "200": {
+           "description": "A lista dos emprestimos",
+           "schema": {
+             "type": "array",
+             "items": {
+              "$ref": "#/definitions/emprestimos"
+            }
+          }
+         },
+        "400": {
+            "description": "Algo correu mal"
+        },
+        "500": {
+          "description": "Ocorreu algum erro para obter os dados dos emprestimos"
+        }
+      }
+     }
+   },
+   "/emprestimo/{eid}": {
+    "get": {
+      "summary": "Mostra se o emprestimo está ativo",
+      "tags":["Emprestimo"],
+      "operationId":"GetActiveEmprestimo",
+      "parameters": [
+       {
+         "name": "eid",
+          "in": "path",
+          "description": "ID do emprestimo",
+         "required": true,
+         "type": "integer",
+          "format": "int64"
+      }
+      ],
+      "responses": {
+        "200": {
+          "description": "Estado do emprestimo",
+          "schema": {
+           "type": "array",
+           "items": {
+             "$ref": "#/definitions/emprestimos"
+           }
+          }
+        },
+        "400": {
+           "description": "Algo correu mal"
+       },
+       "500": {
+         "description": "Ocorreu um erro a obter informacao sobre o emprestimo"
+       }
+     }
+   }
   }
   },
   "definitions": {
@@ -595,6 +710,15 @@
       "type": "object",
       "properties": {
         "Utilizador_id": {
+          "type": "integer",
+          "format": "int64"
+        }  
+      }
+    },
+    "emprestimos_eid": {
+      "type": "object",
+      "properties": {
+        "eid": {
           "type": "integer",
           "format": "int64"
         }  
