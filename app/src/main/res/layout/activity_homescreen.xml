@@ -9,7 +9,7 @@
             android:layout_height="@dimen/_755pxv"
             android:layout_width="match_parent"
             android:scaleType="fitXY" imageRes="@{@drawable/img_image8}"
-            tools:ignore="ContentDescription" tools:src="@drawable/img_image8"/>
+            tools:ignore="ContentDescription" android:src="@drawable/img_image8"/>
         <LinearLayout android:id="@+id/linearColumnuser"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
                 android:layout_width="@dimen/_260pxh"
                 android:scaleType="fitXY"
                 imageRes="@{@drawable/img_image7}"
-                tools:ignore="ContentDescription" tools:src="@drawable/img_image7"/>
+                tools:ignore="ContentDescription" android:src="@drawable/img_image7"/>
             <LinearLayout android:id="@+id/linearRowuser"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_27pxv"
