@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable name="perfilVM" type="com.paipbook.app.modules.perfil.data.viewmodel.PerfilVM"/>
-    </data>
+    <data/>
     <LinearLayout android:gravity="center_horizontal"
         android:id="@+id/linearPerfil"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:orientation="vertical" style="@style/groupStylewhite_A700">
-        <ImageView android:id="@+id/imageHome"
+        android:orientation="vertical" style="@style/groupStylewhite_1">
+        <androidx.appcompat.widget.AppCompatButton
+            android:ellipsize="end" android:gravity="center"
+            android:id="@+id/btnHome"
             android:layout_gravity="center_horizontal"
-            android:layout_height="@dimen/_23pxh"
+            android:layout_height="@dimen/_23pxv"
             android:layout_marginEnd="@dimen/_75pxh"
             android:layout_marginStart="@dimen/_75pxh"
             android:layout_marginTop="@dimen/_31pxv"
             android:layout_width="@dimen/_27pxh"
-            android:scaleType="fitXY" android:src="@drawable/img_home"
-            tools:ignore="ContentDescription" tools:src="@drawable/img_home"/>
+            android:singleLine="true" android:textAllCaps="false" style="@style/btn"/>
         <ImageView android:id="@+id/imageEllipse"
             android:layout_gravity="center_horizontal"
             android:layout_height="@dimen/_149pxh"
@@ -27,17 +26,16 @@
             android:scaleType="fitXY" cornerRadius="@{@dimen/_74pxh}"
             imageRes="@{@drawable/img_ellipse}"
             tools:ignore="ContentDescription" tools:src="@drawable/img_ellipse"/>
-        <TextView android:ellipsize="end" android:id="@+id/nometx"
+        <TextView android:ellipsize="end" android:id="@+id/txtDiana"
             android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_75pxh"
             android:layout_marginStart="@dimen/_75pxh"
             android:layout_marginTop="@dimen/_2pxv"
             android:layout_width="wrap_content"
-            android:singleLine="true"
-            android:text="@{perfilVM.perfilModel.txtDiana}"
-            style="@style/txtRobotoromanregular36_1" tools:text="Nome"/>
-        <TextView android:ellipsize="end" android:id="@+id/AnoCurso"
+            android:singleLine="true" android:text="@string/lbl_diana"
+            style="@style/txtRobotoromanregular36_1" tools:text="@string/lbl_diana"/>
+        <TextView android:ellipsize="end" android:id="@+id/txtCursoInfo"
             android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_75pxh"
@@ -45,62 +43,53 @@
             android:layout_marginTop="@dimen/_14pxv"
             android:layout_width="wrap_content"
             android:letterSpacing="0.03" android:singleLine="true"
-            android:text="@{perfilVM.perfilModel.txtLEGI3ano}"
-            android:textAllCaps="true" style="@style/txtRobotoblack13" tools:text="Curso, Ano"/>
-
+            android:text="@string/lbl_legi_3_ano"
+            android:textAllCaps="true" style="@style/txtRobotoblack13_1" tools:text="@string/lbl_legi_3_ano"/>
         <EditText
-            android:id="@+id/etGroupOne"
-            style="@style/etSolidOutline_1"
-            android:layout_width="match_parent"
+            android:background="@drawable/rectangle_bg_white_a700_border_green_901"
+            android:ellipsize="end" android:hint="@string/lbl_novo_nome"
+            android:id="@+id/etNovoNome" android:inputType="text"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="@dimen/_11pxh"
-            android:background="@drawable/rectangle_bg_white_a700_border_green_903"
-            android:ellipsize="end"
-            android:hint="@string/lbl_novo_nome"
-            android:inputType="text"
-            android:paddingStart="@dimen/_16pxh"
-            android:paddingTop="@dimen/_22pxv"
-            android:paddingEnd="@dimen/_30pxh"
+            android:layout_marginStart="@dimen/_6pxh"
+            android:layout_marginTop="@dimen/_75pxv"
+            android:layout_width="match_parent"
             android:paddingBottom="@dimen/_14pxv"
-            android:singleLine="true"
-            android:text="@={perfilVM.perfilModel.etGroupOneValue}"
+            android:paddingEnd="@dimen/_30pxh"
+            android:paddingStart="@dimen/_16pxh"
+            android:paddingTop="@dimen/_22pxv" android:singleLine="true"
             android:textColorHint="@color/black_900_68"
-            tools:ignore="Autofill" />
-
+            style="@style/etSolidOutline_1" tools:ignore="Autofill"/>
         <EditText
-            android:background="@drawable/rectangle_bg_white_a700_border_green_903"
+            android:background="@drawable/rectangle_bg_white_a700_border_green_901"
             android:ellipsize="end" android:hint="@string/lbl"
             android:id="@+id/etComponent"
             android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_11pxh"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/_6pxh"
+            android:layout_marginTop="@dimen/_39pxv"
             android:layout_width="match_parent"
             android:paddingBottom="@dimen/_19pxv"
             android:paddingEnd="@dimen/_30pxh"
             android:paddingStart="@dimen/_17pxh"
             android:paddingTop="@dimen/_17pxv" android:singleLine="true"
-            android:text="@={perfilVM.perfilModel.etComponentValue}"
-            android:textColorHint="@color/green_903"
+            android:textColorHint="@color/green_901"
             style="@style/etSolidOutline" tools:ignore="Autofill"/>
         <EditText
-            android:background="@drawable/rectangle_bg_white_a700_border_green_903"
+            android:background="@drawable/rectangle_bg_white_a700_border_green_901"
             android:ellipsize="end"
             android:hint="@string/msg_nova_palavra_pa"
             android:id="@+id/etComponentOne" android:inputType="text"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_11pxh"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/_6pxh"
+            android:layout_marginTop="@dimen/_32pxv"
             android:layout_width="match_parent"
             android:paddingBottom="@dimen/_17pxv"
             android:paddingEnd="@dimen/_30pxh"
             android:paddingStart="@dimen/_17pxh"
             android:paddingTop="@dimen/_17pxv" android:singleLine="true"
-            android:text="@={perfilVM.perfilModel.etComponentOneValue}"
             android:textColorHint="@color/black_900_68"
             style="@style/etSolidOutline_1" tools:ignore="Autofill"/>
         <androidx.appcompat.widget.AppCompatButton

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable name="welcomeVM" type="com.paipbook.app.modules.welcome.data.viewmodel.WelcomeVM"/>
-    </data>
+    <data/>
     <LinearLayout android:gravity="center_horizontal"
         android:id="@+id/linearWelcome"
         android:layout_height="match_parent"
@@ -16,7 +14,7 @@
             android:layout_marginTop="@dimen/_179pxv"
             android:layout_width="@dimen/_303pxh"
             android:scaleType="fitXY" imageRes="@{@drawable/img_image7}"
-            tools:ignore="ContentDescription" tools:src="@drawable/img_image7"/>
+            tools:ignore="ContentDescription" android:src="@drawable/img_image7"/>
         <LinearLayout android:gravity="start"
             android:id="@+id/linearRowlogIn"
             android:layout_height="wrap_content"
@@ -25,42 +23,34 @@
             android:layout_marginStart="@dimen/_14pxh"
             android:layout_marginTop="@dimen/_212pxv"
             android:layout_width="match_parent" android:orientation="horizontal">
-
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnRegisto"
-                style="@style/btnSolidRounded"
-                android:layout_width="wrap_content"
+                android:ellipsize="end" android:gravity="center"
+                android:id="@+id/btnLogIn"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-100dp"
-                android:ellipsize="end"
-                android:gravity="center"
+                android:layout_weight="0.5" android:layout_width="0dp"
                 android:letterSpacing="0.03"
+                android:paddingBottom="@dimen/_18pxv"
+                android:paddingEnd="@dimen/_30pxh"
                 android:paddingStart="@dimen/_30pxh"
                 android:paddingTop="@dimen/_18pxv"
-                android:paddingEnd="@dimen/_30pxh"
-                android:paddingBottom="@dimen/_18pxv"
                 android:singleLine="true"
-                android:text="@string/lbl_next"
+                android:text="@string/lbl_log_in"
                 android:textAllCaps="true"
-                tools:text="@string/lbl_registo" />
+                style="@style/btnSolidRoundedOutline" tools:text="@string/lbl_log_in"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:ellipsize="end" android:gravity="center"
+                android:id="@+id/btnRegisto"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" android:layout_width="0dp"
+                android:letterSpacing="0.03"
+                android:paddingBottom="@dimen/_18pxv"
+                android:paddingEnd="@dimen/_30pxh"
+                android:paddingStart="@dimen/_30pxh"
+                android:paddingTop="@dimen/_18pxv"
+                android:singleLine="true"
+                android:text="@string/lbl_registo"
+                android:textAllCaps="true"
+                style="@style/btnSolidRounded" tools:text="@string/lbl_registo"/>
         </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnLogIn"
-            style="@style/btnSolidRoundedOutline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:letterSpacing="0.03"
-            android:paddingStart="@dimen/_30pxh"
-            android:paddingTop="@dimen/_4pxv"
-            android:paddingEnd="@dimen/_30pxh"
-            android:paddingBottom="@dimen/_18pxv"
-            android:singleLine="true"
-            android:text="@string/lbl_log_in"
-            android:textAllCaps="true"
-            tools:text="@string/lbl_log_in" />
     </LinearLayout>
 </layout>

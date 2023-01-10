@@ -75,7 +75,7 @@
 
 
 # Add any classes the interact with gson
--keep class com.paipbook.app.** { *; }
+-keep class com.ipbook.app.** { *; }
 
 
 
