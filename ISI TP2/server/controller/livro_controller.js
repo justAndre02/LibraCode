@@ -48,7 +48,7 @@ exports.GetLivroInfo_get = async (req, res,next) => {
 };
 
 /**
- * Remove um livro pelo seu nome
+ * Remove um livro pelo seu identificador
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 

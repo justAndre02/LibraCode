@@ -27,7 +27,7 @@ exports.RegisterUtilizador_post = async (req, res,next) => {
         res.status(500).json({message: "Ocorreu algum erro ao criar o Utilizador"});
       }
       if(data.length > 0){
-        return res.status(200).json({"message": "Este Utilizador já existe"}); 
+        return res.status(400).json({"message": "Este Utilizador já existe"}); 
       }
       else{
         // salvar utilizador na base de dados
@@ -195,7 +195,7 @@ exports.GetLogin_post = async (req, res,next) => {
       {
           res.status(500).json({message: err.message || "Não foi possivel logar o utilizador"});
       }
-      if(data.length === 0)
+      if(data.length !== 0)
       {
         await Utilizador.GetLogin(email, password, async (err1, data) => {
           if (err1)
