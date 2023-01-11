@@ -46,7 +46,6 @@ class Login() : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
             .build()
-
         val api = retrofit.create(Api::class.java)
 
         var found : Int = 0
