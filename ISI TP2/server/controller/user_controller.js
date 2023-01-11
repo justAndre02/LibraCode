@@ -195,7 +195,7 @@ exports.GetLogin_post = async (req, res,next) => {
       {
           res.status(500).json({message: err.message || "Não foi possivel logar o utilizador"});
       }
-      if(data.length !== 0)
+      if(data.length === 0)
       {
         await Utilizador.GetLogin(email, password, async (err1, data) => {
           if (err1)
@@ -204,7 +204,7 @@ exports.GetLogin_post = async (req, res,next) => {
             results = JSON.parse(JSON.stringify(data[0]));
             console.log(results[0].email,results[0].id, results[0].password);
             if ((results[0].email == email) && (results[0].password == password)) {
-              let token = jwt.sign(results[0],'secret',{expiresIn:'1h'});
+              let token = jwt.sign(results[0],'secret'); 
               await Utilizador.RegisterToken(token,(err, data) => {
                 if(err)
                   {
@@ -228,7 +228,6 @@ exports.GetLogin_post = async (req, res,next) => {
   }
 };
 
-
 exports.signupValidation = async(req,res,next) => {
   try{
     if(
@@ -250,8 +249,9 @@ exports.signupValidation = async(req,res,next) => {
           return res.send({ error: false, data: data[0], message: 'Utilizador Encontrado.' });
       });
   }
-  catch{
-
+  catch(error) {
+    console.log(error);
+    next(error);
   }
 };
 
@@ -259,7 +259,7 @@ exports.Logout_delete = async (req, res,next) => {
   try {
     if(!req.params) return res.status(404).json({message:"bad request"});
 
-    const id = '1';
+    const idtoken = '1';
 
     await Utilizador.GetToken(async(err,data) => {
       if(err) {
@@ -269,7 +269,7 @@ exports.Logout_delete = async (req, res,next) => {
       {
         return res.status(200).json({message: "Nenhum utilizador logado"})
       }else {
-        await Utilizador.EliminarToken(id,(err1, data) => {
+        await Utilizador.EliminarToken(idtoken,(err1, data) => {
           if (err1)
             res.status(500).json({message: "Ocorreu algum erro para obter os dados dos utilizadores"});
           else{ 

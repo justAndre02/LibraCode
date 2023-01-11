@@ -151,8 +151,8 @@ class Utilizador
     /**
      * Eliminar tokens na tabela token
      */
-    static async EliminarToken(id,result) {
-        let query = `DELETE FROM token WHERE idtoken > "${id}"`;
+    static async EliminarToken(idtoken,result) {
+        let query = `DELETE FROM token WHERE idtoken > "${idtoken}"`;
         const[rows,fields] =  await sql.execute(query);
         //console.table(rows[0]);
         result(null,rows);
