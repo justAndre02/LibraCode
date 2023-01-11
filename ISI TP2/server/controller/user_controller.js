@@ -18,10 +18,10 @@ exports.RegisterUtilizador_post = async (req, res,next) => {
     if((req.body.nome === "") || (req.body.email === "") || (req.body.password === "") || (req.body.nif === "")| (req.body.TipoUtilizador_id === "")) 
       res.status(400).json({Message: "Campos Não preenchidos"});
 
-    if(req.body.nif.length !== 9)
+    /*if(req.body.nif.length !== 9)
     {
       return res.status(400).json({Message: "NIF precisa ter 9 caracteres"});
-    }
+    }*/
 
     const { nome, email, password, nif, TipoUtilizador_id} = req.body;
 
