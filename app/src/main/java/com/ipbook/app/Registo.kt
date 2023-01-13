@@ -1,17 +1,17 @@
 package com.ipbook.app
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
-import com.google.gson.Gson
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.ipbook.app.api.Api
 import com.ipbook.app.model.SendUser
-import com.ipbook.app.model.User
 import com.ipbook.app.util.Constant
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,10 +48,30 @@ class Registo : AppCompatActivity() {
             if(validateEmail()){
                 registerUser{ validate ->
                     if (validate == 200){
-                        val intent = Intent(this, Homescreen::class.java)
-                        startActivity(intent)
+                        openDialog()
                     }
                 }
+            }
+        }
+    }
+
+    @SuppressLint("InflateParams", "SetTextI18n")
+    private fun openDialog(){
+        val builder = AlertDialog.Builder(this)
+        val inflater = LayoutInflater.from(this)
+        val dialogLayout = inflater.inflate(R.layout.dialog_login, null, false)
+
+        with(builder){
+            setView(dialogLayout)
+            setTitle("Sucesso")
+            val messageDialog = dialogLayout.findViewById<TextView>(R.id.text_error_message)
+            messageDialog.text = "Utilizador criado com sucesso!"
+            val buttonDialog = dialogLayout.findViewById<Button>(R.id.button_ok)
+            val dialog = builder.show()
+            buttonDialog.setOnClickListener{
+                val intent = Intent(this@Registo, Welcome::class.java)
+                startActivity(intent)
+                dialog.dismiss()
             }
         }
     }

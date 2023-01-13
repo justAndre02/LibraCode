@@ -175,4 +175,5 @@ Estado: Disponivel</string>
     <string name="passwordhint">Password</string>
     <string name="nameHint">Nome</string>
     <string name="nifhint">Nif</string>
+    <string name="dados_errados">Acesso negado</string>
 </resources>

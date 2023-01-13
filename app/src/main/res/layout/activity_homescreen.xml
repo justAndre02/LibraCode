@@ -4,6 +4,15 @@
     <FrameLayout android:id="@+id/framePginaInicial"
         android:layout_height="match_parent"
         android:layout_width="match_parent" style="@style/groupStylewhite_A700">
+
+        <ImageView
+            android:id="@+id/button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/image_exit"
+            android:translationZ="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"/>
         <ImageView android:id="@+id/imageImageEight"
             android:layout_gravity="start"
             android:layout_height="@dimen/_755pxv"
