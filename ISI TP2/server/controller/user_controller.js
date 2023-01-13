@@ -111,7 +111,7 @@ exports.UpdateUtilizadorPassword_put = async(req, res, next) => {
                 if (err1)
                     res.status(500).json({ message: err1.message || "Ocorreu algum erro ao atualizar o conteudo" });
             });
-        res.status(200).json({ message: "Password atualizada com sucesso !" });
+        res.status(202).json({ message: "Password atualizada com sucesso !" });
     } catch (error) {
         console.log(error);
         next(error);
