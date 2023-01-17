@@ -69,6 +69,13 @@ class Emprestimo{
         //console.table(rows[0]);
         result(null,rows);
     }
+
+    static async GetEmprestimoByUser(Utilizador_id, result) {
+        let query = `SELECT * FROM emprestimo where Utilizador_id = "${Utilizador_id}"`;
+        const[rows,fields] =  await sql.execute(query);
+        //console.table(rows[0]);
+        result(null,rows);
+    }
 }
 
 module.exports = Emprestimo
