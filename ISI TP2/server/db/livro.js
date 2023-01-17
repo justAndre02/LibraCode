@@ -20,7 +20,7 @@ class Livro {
     }
 
     static async GetSomeLivros(result) {
-        let query = "SELECT title, authors, publication_date FROM livro;";
+        let query = "SELECT bookID, title, authors, publication_date FROM livro;";
         const[rows,fields] =  await sql.execute(query);
         //console.table(rows[0]);
         result(null,rows);
