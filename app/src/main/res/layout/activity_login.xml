@@ -74,5 +74,3 @@
             style="@style/btnSolidRoundedOutline_1" tools:text="@string/lbl_log_in2"/>
     </LinearLayout>
 </layout>
-
-

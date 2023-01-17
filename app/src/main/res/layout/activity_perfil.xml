@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <data/>
     <LinearLayout android:gravity="center_horizontal"
         android:id="@+id/linearPerfil"
         android:layout_height="match_parent"
@@ -24,16 +25,16 @@
             android:layout_width="@dimen/_148pxh"
             android:scaleType="fitXY" cornerRadius="@{@dimen/_74pxh}"
             imageRes="@{@drawable/img_ellipse}"
-            tools:ignore="ContentDescription" android:src="@drawable/img_ellipse"/>
-        <TextView android:ellipsize="end" android:id="@+id/txtname"
+            tools:ignore="ContentDescription" tools:src="@drawable/img_ellipse"/>
+        <TextView android:ellipsize="end" android:id="@+id/txtDiana"
             android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_75pxh"
             android:layout_marginStart="@dimen/_75pxh"
             android:layout_marginTop="@dimen/_2pxv"
             android:layout_width="wrap_content"
-            android:singleLine="true" android:text=""
-            style="@style/txtRobotoromanregular36_1"/>
+            android:singleLine="true" android:text="@string/lbl_diana"
+            style="@style/txtRobotoromanregular36_1" tools:text="@string/lbl_diana"/>
         <TextView android:ellipsize="end" android:id="@+id/txtCursoInfo"
             android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
@@ -93,7 +94,7 @@
             style="@style/etSolidOutline_1" tools:ignore="Autofill"/>
         <androidx.appcompat.widget.AppCompatButton
             android:ellipsize="end" android:gravity="center"
-            android:id="@+id/btnSalvarAlteracoes"
+            android:id="@+id/btnSalvarAlteraes"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_20pxv"
             android:layout_marginEnd="@dimen/_74pxh"
@@ -107,6 +108,6 @@
             android:paddingTop="@dimen/_23pxv" android:singleLine="true"
             android:text="@string/msg_salvar_altera"
             android:textAllCaps="false"
-            style="@style/btnSolidRoundedOutline_2"/>
+            style="@style/btnSolidRoundedOutline_2" tools:text="@string/msg_salvar_altera"/>
     </LinearLayout>
 </layout>
