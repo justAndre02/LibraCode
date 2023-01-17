@@ -23,6 +23,22 @@ exports.GetAllLivros_get = async (req, res,next) => {
     }
 };
 
+exports.GetAll50Livros_get = async (req, res,next) => {
+  try {
+    await Livro.GetAll50Livros((err, data) => {
+      if (err)
+        res.status(500).json({
+          message:
+            err.message || "Ocorreu algum erro para obter os dados dos livros"
+        });
+      else res.status(200).json(data);
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 /**
  * Chama um livro pelo seu id
  * @param {*} req 

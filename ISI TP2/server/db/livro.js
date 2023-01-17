@@ -12,6 +12,13 @@ class Livro {
         result(null,rows);
     }
 
+    static async GetAll50Livros(result) {
+        let query = "SELECT * FROM livro WHERE bookID < 50";
+        const[rows,fields] =  await sql.execute(query);
+        //console.table(rows[0]);
+        result(null,rows);
+    }
+
     /**
      * Apresenta toda a informação de um livro
      * @param {int} bookID Identificação de um livro
