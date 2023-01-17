@@ -4,7 +4,10 @@ var router = require("express").Router();
 //get todos os livros
 router.get("/all", livro.GetAllLivros_get);
 
-//get todos os livros
+//get todos os livros mas apenas algumas informacoes
+router.get("/some", livro.GetSomeLivros_get);
+
+//get 50 livros
 router.get("/all50", livro.GetAll50Livros_get);
 
 //get livros por id

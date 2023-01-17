@@ -19,6 +19,13 @@ class Livro {
         result(null,rows);
     }
 
+    static async GetSomeLivros(result) {
+        let query = "SELECT title, authors, publication_date FROM livro;";
+        const[rows,fields] =  await sql.execute(query);
+        //console.table(rows[0]);
+        result(null,rows);
+    }
+
     /**
      * Apresenta toda a informação de um livro
      * @param {int} bookID Identificação de um livro
