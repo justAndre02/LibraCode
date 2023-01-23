@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:background="#50A855"
+    android:orientation="vertical"
+    android:padding="18dp">
+    <TextView
+        android:id="@+id/bookID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sp"
+        android:fontFamily="@font/roboto"
+        tools:text="ID: "/>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/bookname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sp"
+        android:fontFamily="@font/roboto"
+        tools:text="Nome: "/>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bookauthor"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sp"
+        android:fontFamily="@font/roboto"
+        tools:text="Autor: "/>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bookyear"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sp"
+        android:fontFamily="@font/roboto"
+        tools:text="Ano: "/>
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reservar"
+        android:backgroundTint="@color/light_green_200"
+        android:id="@+id/btnReserva"/>
+</LinearLayout>

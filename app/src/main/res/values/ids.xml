@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="etComponentThree" type="id" />
+    <item name="btnReserva" type="id"/>
+</resources>

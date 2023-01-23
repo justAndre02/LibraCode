@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:orientation="vertical" style="@style/groupStylewhite_1">
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageView
             android:ellipsize="end" android:gravity="center"
             android:id="@+id/btnHome"
             android:layout_gravity="center_horizontal"
@@ -15,7 +15,8 @@
             android:layout_marginStart="@dimen/_23pxh"
             android:layout_marginTop="@dimen/_21pxv"
             android:layout_width="@dimen/_33pxh"
-            android:singleLine="true" android:textAllCaps="false" style="@style/btn"/>
+            android:singleLine="true" android:textAllCaps="false" style="@style/btn"
+            android:src="@drawable/image_home"/>
         <TextView android:ellipsize="end" android:id="@+id/txtLogin"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_23pxh"

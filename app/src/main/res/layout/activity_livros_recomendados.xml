@@ -22,7 +22,7 @@
                 <LinearLayout android:id="@+id/linearRowarrowleft"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent" android:orientation="horizontal">
-                    <androidx.appcompat.widget.AppCompatButton
+                    <ImageButton
                         android:ellipsize="end" android:gravity="center"
                         android:id="@+id/btnArrowleft"
                         android:layout_height="@dimen/_17pxh"
@@ -30,15 +30,17 @@
                         android:layout_marginTop="@dimen/_6pxv"
                         android:layout_width="@dimen/_17pxh"
                         android:singleLine="true"
-                        android:textAllCaps="false" style="@style/btn"/>
-                    <androidx.appcompat.widget.AppCompatButton
+                        android:textAllCaps="false" style="@style/btn"
+                        android:src = "@drawable/img_arrowleft"/>
+                    <ImageButton
                         android:ellipsize="end" android:gravity="center"
                         android:id="@+id/btnHome"
                         android:layout_height="@dimen/_27pxv"
                         android:layout_marginStart="@dimen/_123pxh"
                         android:layout_width="@dimen/_33pxh"
                         android:singleLine="true"
-                        android:textAllCaps="false" style="@style/btn"/>
+                        android:textAllCaps="false" style="@style/btn"
+                        android:src="@drawable/image_home"/>
                 </LinearLayout>
             </androidx.appcompat.widget.Toolbar>
             <TextView android:ellipsize="end" android:id="@+id/txtPDM"
@@ -59,8 +61,8 @@
                 android:layout_marginTop="@dimen/_19pxv"
                 android:layout_width="wrap_content"
                 android:singleLine="true"
-                android:text="@string/lbl_top_3"
-                style="@style/txtRobotoromanblack36" tools:text="@string/lbl_top_3"/>
+                android:text="@string/lbl_top_2"
+                style="@style/txtRobotoromanblack36" tools:text="@string/lbl_top_2"/>
             <LinearLayout android:gravity="start"
                 android:id="@+id/linearRowdescription"
                 android:layout_height="wrap_content"
@@ -76,7 +78,7 @@
                     android:layout_width="@dimen/_95pxh"
                     android:scaleType="fitXY"
                     imageRes="@{@drawable/img_image9}"
-                    tools:ignore="ContentDescription" tools:src="@drawable/img_image9"/>
+                    tools:ignore="ContentDescription" android:src="@drawable/img_image9"/>
                 <TextView android:id="@+id/txtDescription"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_28pxv"
@@ -104,7 +106,7 @@
                     android:layout_width="@dimen/_95pxh"
                     android:scaleType="fitXY"
                     imageRes="@{@drawable/img_image10}"
-                    tools:ignore="ContentDescription" tools:src="@drawable/img_image10"/>
+                    tools:ignore="ContentDescription" android:src="@drawable/img_image10"/>
                 <TextView android:id="@+id/txtDescriptionOne"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_28pxv"
@@ -116,34 +118,6 @@
                     android:letterSpacing="0.03"
                     android:text="@string/msg_nome_kotlin_in"
                     style="@style/txtRobotoblack13_2" tools:text="@string/msg_nome_kotlin_in"/>
-            </LinearLayout>
-            <LinearLayout android:gravity="start"
-                android:id="@+id/linearRowdescriptionTwo"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_1pxh"
-                android:layout_marginTop="@dimen/_9pxv"
-                android:layout_width="match_parent"
-                android:orientation="horizontal" style="@style/groupStylelight_green_900_44">
-                <ImageView android:id="@+id/imageImageEleven"
-                    android:layout_height="@dimen/_118pxh"
-                    android:layout_marginBottom="@dimen/_26pxv"
-                    android:layout_marginStart="@dimen/_5pxh"
-                    android:layout_marginTop="@dimen/_29pxv"
-                    android:layout_width="@dimen/_95pxh"
-                    android:scaleType="fitXY"
-                    imageRes="@{@drawable/img_image11}"
-                    tools:ignore="ContentDescription" tools:src="@drawable/img_image11"/>
-                <TextView android:id="@+id/txtDescriptionTwo"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_28pxv"
-                    android:layout_marginEnd="@dimen/_26pxh"
-                    android:layout_marginStart="@dimen/_8pxh"
-                    android:layout_marginTop="@dimen/_25pxv"
-                    android:layout_weight="0.69"
-                    android:layout_width="0dp"
-                    android:letterSpacing="0.03"
-                    android:text="@string/msg_nome_head_firs"
-                    style="@style/txtRobotoblack13_2" tools:text="@string/msg_nome_head_firs"/>
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

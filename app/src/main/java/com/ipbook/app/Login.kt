@@ -1,24 +1,22 @@
 package com.ipbook.app
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
-import com.google.gson.JsonObject
-import com.ipbook.app.api.ApiInterface
-import com.ipbook.app.data.UserDataItem
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.Retrofit
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import com.ipbook.app.api.Api
+import com.ipbook.app.model.AllUsers
+import com.ipbook.app.model.UserLogin
+import com.ipbook.app.util.Constant.baseUrl
+import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.regex.Pattern
-import javax.security.auth.callback.Callback
-
-
 
 class Login : AppCompatActivity() {
-
-    private val BASE_URL = "https://isi-pa.onrender.com/"
 
     private lateinit var email : EditText
 
@@ -26,74 +24,138 @@ class Login : AppCompatActivity() {
 
     private lateinit var button : Button
 
+    @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        button = findViewById<Button>(R.id.btnLogInOne)
-        password = findViewById<EditText>(R.id.etComponentOne)
-        email = findViewById<EditText>(R.id.etComponent)
 
-        button.setOnClickListener(){
-            verifyUser()
+        button = findViewById(R.id.btnLogInOne)
+        password = findViewById(R.id.etComponentOne)
+        email = findViewById(R.id.etComponent)
+
+        button.setOnClickListener{
+            verifyUser { found ->
+                if (found == 200){
+                    val intent = Intent(this, Homescreen::class.java)
+                    saveName{nome ->
+                        if(nome != ""){
+                            Data.nome = nome
+                            intent.putExtra("nome", nome)
+                            println(nome)
+                        }
+                    }
+                    startActivity(intent)
+                }
+                else if(found == 404){
+                    openDialog()
+                }
+            }
+
+        }
+
+    }
+
+    /*
+    *  Function used to open the Dialog window when the user insert data that is not in the API
+    * */
+    @SuppressLint("InflateParams", "SetTextI18n")
+    private fun openDialog(){
+        val builder = AlertDialog.Builder(this)
+        val inflater = LayoutInflater.from(this)
+        val dialogLayout = inflater.inflate(R.layout.dialog_login, null, false)
+
+        with(builder){
+            setView(dialogLayout)
+            setTitle("Erro")
+            val messageDialog = dialogLayout.findViewById<TextView>(R.id.text_error_message)
+            messageDialog.text = "Dados inseridos incorretos!"
+            val buttonDialog = dialogLayout.findViewById<Button>(R.id.button_ok)
+            val dialog = builder.show()
+            buttonDialog.setOnClickListener{
+                dialog.dismiss()
+            }
         }
     }
 
-
-    private fun verifyUser(){
-        val retrofitBuilder = Retrofit.Builder()
+    /*
+    * Function used to verify if the data inserted by the user is correct (email and password match)
+    * To achieve that we used a POST method
+    * */
+    private fun verifyUser(callback: (Int) -> Unit) : Int{
+        val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .build()
-            .create(ApiInterface::class.java)
 
-        val retrofitData = retrofitBuilder.getUserData()
+        val api = retrofit.create(Api::class.java)
 
-        retrofitData.enqueue(object : retrofit2.Callback<List<UserDataItem>?> {
-            override fun onResponse(call: Call<List<UserDataItem>?>, response: Response<List<UserDataItem>?>){
+        val userLogin = UserLogin(
+            email.text.toString(),
+            password.text.toString()
+        )
+
+        var found = 0
+
+        val mycall = api.getUsers(userLogin)
+
+        mycall.enqueue(object : Callback<UserLogin?> {
+            override fun onResponse(call: Call<UserLogin?>, response: Response<UserLogin?>) {
+                found = response.code()
+                callback(found)
+                println(response.code().toString())
+            }
+
+            override fun onFailure(call: Call<UserLogin?>, t: Throwable) {
+                println("Error")
+            }
+        })
+
+        return found
+    }
+
+    /*
+    * Function used to get the name and the id of the user that logged in to update the User Account Page text
+    * To achieve that we used a GET method
+    * */
+    private fun saveName(callback: (String) -> Unit) : String{
+        val retrofit = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(baseUrl)
+            .build()
+
+        val api = retrofit.create(Api::class.java)
+
+        // Make the API call
+        val myCall = api.getAllUsers()
+
+        var nome = ""
+
+        myCall.enqueue(object : Callback<List<AllUsers>?> {
+            override fun onResponse(call: Call<List<AllUsers>?>, response: Response<List<AllUsers>?>){
                 val responseBody = response.body()!!
-                validateEmail()
-                validatePassword()
-                for (UserData in responseBody){
-                    if (UserData.email == email.text.toString()){
-                        email.error = "Email em uso!"
-                        break;
-                    }
-                    if (!validateEmail() || !validatePassword()){
-                        break;
+                for (AllUsers in responseBody){
+                    if (AllUsers.email == email.text.toString()){
+                        // Update the nome text
+                        Data.id = AllUsers.id
+                        nome = AllUsers.nome
+                        callback(nome)
                     }
                 }
             }
-            override fun onFailure(call: Call<List<UserDataItem>?>, t: Throwable) {
-                println("Falhou!")
+
+            override fun onFailure(call: Call<List<AllUsers>?>, t: Throwable) {
+                println("Erro")
             }
         })
+        return nome
     }
 
-    private fun validateEmail() : Boolean {
-        val emailValidate = email.text.toString().trim()
-        return if(emailValidate.isEmpty()){
-            email.error = "Please enter a email"
-            false
-        }else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(emailValidate).matches()){
-            email.error = "Wrong email format"
-            false
-        } else{
-            true
-        }
+    /*
+    * Variable the will hold the user name in all APP
+    * */
+    object Data{
+        var nome : String = ""
+        var id : Int = 0
     }
 
-    private fun validatePassword() : Boolean {
-        val passwordValidate = password.text.toString().trim()
-        val passwordREGEX = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=\\S+\$).{6,}")
-        return if(passwordValidate.isEmpty()){
-            password.error = "Please enter a password"
-            false
-        }else if(!passwordREGEX.matcher(passwordValidate).matches()){
-            password.error = "Password not valid"
-            false
-        }
-        else{
-            true
-        }
-    }
 }

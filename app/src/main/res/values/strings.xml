@@ -149,7 +149,7 @@ Ano: 2017
 Páginas: 360
 
 </string>
-    <string name="lbl_top_3">Top 3:</string>
+    <string name="lbl_top_2">Top 2:</string>
     <string name="msg_processamento_d">Processamento de Linguagens</string>
     <string name="lbl_diana">Diana</string>
     <string name="msg_selecione_a_dis">Selecione a disciplina</string>
@@ -174,4 +174,7 @@ Estado: Disponivel</string>
     <string name="emailhint">Email</string>
     <string name="passwordhint">Password</string>
     <string name="nameHint">Nome</string>
+    <string name="nifhint">Nif</string>
+    <string name="dados_errados">Acesso negado</string>
+    <string name="selectItem">Selecione a disciplina</string>
 </resources>

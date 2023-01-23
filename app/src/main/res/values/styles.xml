@@ -158,4 +158,7 @@
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textFontWeight" tools:targetApi="p">900</item>
     </style>
+    <style name="CustomAutoCompleteTextViewStyle" parent="Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox">
+        <item name="boxStrokeColor">@color/green_900</item>
+    </style>
 </resources>
